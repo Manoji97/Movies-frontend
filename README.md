@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Movies-frontend
 Front-end for Movies site using React
 =======
@@ -76,3 +77,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 # Movies-frontend
 Front-end for Movies site using React
 >>>>>>> 8e9213fc3d04caf22d8f34b31421e8934b0b21a5
+=======
+# Movies-frontend
+Frontend using React for Movies-API
+>>>>>>> 27b55b0a0208e8c56fd326a56516c5c3a5834abc
