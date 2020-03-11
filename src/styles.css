@@ -1,0 +1,44 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+body{
+}
+
+#userimage {
+    margin: 50px auto 20px auto;
+    border-radius: 50%;
+    cursor: auto;
+}
+.Search {
+  padding-top: 64px;
+}
+.main-search{
+  padding: 50px 300px 10px 300px;
+}
+.main-search .row {
+    margin-bottom: 0px;
+}
+.main-search input{
+    font-size: 24px !important;
+}
+.main {
+    padding: 0px 150px;
+}
+.acc {
+  font-size: 40px !important;
+}
+.input-field .prefix {
+  font-size: 2.5rem;
+}
+
+
+@media (max-width: 990px) {
+    .main {
+      padding: 0px 50px;
+    }
+    .main-search{
+      padding: 50px 50px 10px 50px;
+    }
+}
