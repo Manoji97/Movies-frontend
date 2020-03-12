@@ -3,12 +3,13 @@ import React, { Component } from "react";
 import Nav from "./navabar/nav";
 import Mainsearch from "./mainsearch/mainsearch";
 import MovieList from "./home/movielist"
+import Detail from "./detail/detail"
 
 class Main extends Component {
   state = {
     mainsearch: ""
   };
-  movielist = [1,2]
+
 
   onchangehandler(e) {
     this.setState({ mainsearch: e.target.value });
@@ -20,7 +21,8 @@ class Main extends Component {
       <React.Fragment>
         <Nav />
         <Mainsearch onchange={e => this.onchangehandler(e)} />
-        <MovieList movielist={this.movielist}/>
+        {/*<MovieList />*/}
+        <Detail />
       </React.Fragment>
     );
   }

@@ -1,26 +1,48 @@
 import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 
-import MovieCard from "./moviecard";
+import * as cards from "../moviecards";
+import Footer from "./footer";
 
-const MovieList = props => {
-  let Movies = props.movielist.map(() => {
-    return(
-      <div className="col s12 m6 l4 xl3">
-      <MovieCard image_link="https://www.movienewsletters.net/photos/156876R1.jpg"
-      
-      movie_name="Ironman 3"
-      movie_rating="9/10"
-      />
-    </div>
+class MovieList extends Component {
+  state = {
+    pagenumber: 1
+  };
+
+  data = {
+    count: 3,
+    movielist: [1,1, 1],
+    next: null,
+    previous: "p_link"
+  }
+
+  render() {
+    let Movies = this.data.movielist.map(() => {
+      return (
+        <div className="col s12 m6 l4 xl3">
+          <cards.MovieCard
+            image_link="https://www.movienewsletters.net/photos/156876R1.jpg"
+            movie_name="Ironman 3"
+            movie_rating="9/10"
+          />
+        </div>
+      );
+    });
+    return (
+      <section className="main">
+        <div className="row">{Movies}</div>
+        <Footer
+          count={this.data.count}
+          presentpage={1}
+          links={{
+              next: this.data.next,
+              previous: this.data.previous
+            }
+          }
+        />
+      </section>
     );
-  });
-
-  return (
-    <section className="main">
-      <div className="row">{Movies}</div>
-    </section>
-  );
-};
+  }
+}
 
 export default MovieList;

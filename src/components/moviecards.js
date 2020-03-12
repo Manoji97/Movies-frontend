@@ -1,22 +1,46 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+
+const bigcard = {
+  card_height: "300px",
+  card_width: "220px",
+  card_font_size: "1.5rem",
+  cardhover_wrap: "-130px",
+  image_height: "320px",
+  wrap_height: "500px",
+  rating_top: "300px"
+}
+
+const minicard = {
+  card_height: "230px",
+  card_width: "170px",
+  card_font_size: "1rem",
+  cardhover_wrap: "-100px",
+  image_height: "250px",
+  wrap_height: "430px",
+  rating_top: "230px"
+}
+
+
+
+
 const Card = styled.div`
   margin: 20px auto;
   position: relative;
-  height: 300px;
-  width: 220px;
+  height: ${props => props.small ? minicard.card_height: bigcard.card_height};
+  width: ${props => props.small ? minicard.card_width: bigcard.card_width};
   background: #2196f378;
   overflow: hidden;
   transition: all 0.5s ease;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: ${props => props.small ? minicard.card_font_size: bigcard.card_font_size};
   border-radius: 5px;
   box-shadow: 0 2px 2px rgb(47, 39, 46);
 `;
 
 const Image = styled.div`
-  height: 320px;
+  height: ${props => props.small ? minicard.image_height: bigcard.image_height};
   width: 100%;
 `;
 const Image_img = styled.img`
@@ -35,13 +59,13 @@ const Image_img = styled.img`
 const Wrap = styled.div`
   background: linear-gradient(0deg, black 30%, transparent);
   position: absolute;
-  height: 500px;
+  height: ${props => props.small ? minicard.wrap_height: bigcard.wrap_height};
   width: 100%;
   top: 0;
   transition: all 0.5s ease;
 
   ${Card}:hover & {
-    top: -130px;
+    top: ${props => props.small ? minicard.cardhover_wrap: bigcard.cardhover_wrap};
   }
 `;
 const Title = styled.div`
@@ -61,7 +85,7 @@ const Rating = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  top: 300px;
+  top: ${props => props.small ? minicard.rating_top: bigcard.rating_top};
   height: 100px;
   align-items: center;
 `;
@@ -70,7 +94,25 @@ const Span = styled.span`
   text-align: center;
 `;
 
-const MovieCard = props => {
+export const MiniMovieCard = props => {
+  return (
+    <Card small>
+      <Image small>
+        <Image_img src={props.image_link} alt=""/>
+        <Wrap small>
+          <Title>
+            <Span>{props.movie_name}</Span>
+          </Title>
+          <Rating small>
+            <Span>{props.movie_rating}</Span>
+          </Rating>
+        </Wrap>
+      </Image>
+    </Card>
+  );
+};
+
+export const MovieCard = props => {
   return (
     <Card>
       <Image>
@@ -86,6 +128,4 @@ const MovieCard = props => {
       </Image>
     </Card>
   );
-};
-
-export default MovieCard;
+}

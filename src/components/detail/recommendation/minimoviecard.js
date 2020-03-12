@@ -4,19 +4,19 @@ import styled from "styled-components";
 const Card = styled.div`
   margin: 20px auto;
   position: relative;
-  height: 300px;
-  width: 220px;
+  height: 230px;
+  width: 170px;
   background: #2196f378;
   overflow: hidden;
   transition: all 0.5s ease;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1rem;
   border-radius: 5px;
   box-shadow: 0 2px 2px rgb(47, 39, 46);
 `;
 
 const Image = styled.div`
-  height: 320px;
+  height: 250px;
   width: 100%;
 `;
 const Image_img = styled.img`
@@ -35,13 +35,13 @@ const Image_img = styled.img`
 const Wrap = styled.div`
   background: linear-gradient(0deg, black 30%, transparent);
   position: absolute;
-  height: 500px;
+  height: 430px;
   width: 100%;
   top: 0;
   transition: all 0.5s ease;
 
   ${Card}:hover & {
-    top: -130px;
+    top: -100px;
   }
 `;
 const Title = styled.div`
@@ -61,7 +61,7 @@ const Rating = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  top: 300px;
+  top: 230px;
   height: 100px;
   align-items: center;
 `;
@@ -70,7 +70,7 @@ const Span = styled.span`
   text-align: center;
 `;
 
-const MovieCard = props => {
+const MiniMovieCard = props => {
   return (
     <Card>
       <Image>
@@ -88,4 +88,4 @@ const MovieCard = props => {
   );
 };
 
-export default MovieCard;
+export default MiniMovieCard;
