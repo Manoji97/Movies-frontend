@@ -11,7 +11,7 @@ class MovieList extends Component {
 
   data = {
     count: 3,
-    movielist: [1,1, 1],
+    movielist: [1,1, 1, 1,1,1,1,1,1,1,1,1,1],
     next: null,
     previous: "p_link"
   }

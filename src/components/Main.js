@@ -21,8 +21,8 @@ class Main extends Component {
       <React.Fragment>
         <Nav />
         <Mainsearch onchange={e => this.onchangehandler(e)} />
-        {/*<MovieList />*/}
-        <Detail />
+        <MovieList />
+        {/*<Detail />*/}
       </React.Fragment>
     );
   }

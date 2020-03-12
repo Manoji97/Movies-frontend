@@ -36,7 +36,8 @@ const Card = styled.div`
   cursor: pointer;
   font-size: ${props => props.small ? minicard.card_font_size: bigcard.card_font_size};
   border-radius: 5px;
-  box-shadow: 0 2px 2px rgb(47, 39, 46);
+  border: 3px solid #73AD21;
+  box-shadow: 0 5px 10px rgb(47, 39, 46);
 `;
 
 const Image = styled.div`
@@ -57,7 +58,7 @@ const Image_img = styled.img`
   }
 `;
 const Wrap = styled.div`
-  background: linear-gradient(0deg, black 30%, transparent);
+  background: linear-gradient(0deg, black 40%, transparent);
   position: absolute;
   height: ${props => props.small ? minicard.wrap_height: bigcard.wrap_height};
   width: 100%;
