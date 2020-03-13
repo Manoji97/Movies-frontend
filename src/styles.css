@@ -1,137 +1,139 @@
 .App {
-  font-family: sans-serif;
-  text-align: center;
-}
-body{
-    background-image: url("images/sky.jpg");
-    background-size: cover;
-}
-
-nav {
-    background:transparent !important;
-    border-bottom: 3px solid rgb(41, 41, 41);
-}
-
-#userimage {
-    margin: 50px auto 20px auto;
-    border-radius: 50%;
-    cursor: auto;
-}
-.Search {
-  padding-top: 64px;
-}
-.main-search{
-  padding: 50px 300px 10px 300px;
-  background-color: #0d06383b;
-}
-.main-search .row {
-    margin-bottom: 0px;
-}
-.main-search input{
-    font-size: 24px !important;
-    border-radius: 25px !important;
+    font-family: sans-serif;
+    text-align: center;
+  }
+  body{
+      background-image: url("https://1920x1080hdwallpapers.com/image/201602/abstract/4797/surface-pink-shine-dark-sky-650x366.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+  }
+  
+  
+  #userimage {
+      margin: 50px auto 20px auto;
+      border-radius: 50%;
+      cursor: auto;
+  }
+  .Search {
+    padding-top: 64px;
+  }
+  .main-search{
+    padding: 50px 300px 10px 300px;
+    background-color: #3030703b;
+  }
+  .main-search .row {
+      margin-bottom: 0px;
+  }
+  .main-search input{
+      font-size: 24px !important;
+      border-radius: 25px !important;
+      color: white;
+  }
+  .main {
+      padding: 0px 150px;
+      background: rgba(41, 41, 41, 0.26);
+  }
+  .acc {
+    font-size: 40px !important;
+  }
+  .input-field .prefix {
+    font-size: 2.5rem;
     color: white;
-}
-.main {
-    padding: 0px 150px;
-    background: rgba(41, 41, 41, 0.26);
-}
-.acc {
-  font-size: 40px !important;
-}
-.input-field .prefix {
-  font-size: 2.5rem;
-  color: white;
-}
-
-
-
-
-.movie-detail .image, .movie-detail .content{
-    height: 400px;
-    width: 100%;
-}
-.content .row {
-    padding: 5px 20px;
-    margin: 0;
-}
-.content .key {
-    text-align: left;
-    margin: 5px auto;
-    font-weight: 600;
-    font-size: 22px;
-}
-.content .key::after{
-    content: " :"
-}
-.content .value{
-    text-align: left;
-    margin: 5px auto;
-    font-weight: 400;
-    font-size: 20px;
-}
-
-.image{
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
-
-}
-.image img{
-    margin: 0 auto;
-    box-shadow: 0 5px 5px rgb(47, 39, 46);
-    max-width: 300px;
-    height: 400px;
-    border-radius: 5px;
-}
-
-.recommendations{
-    margin-top: 20px;
-    height: auto;
-    width: 100%;
-}
-.recommendations .label{
-    font-size: 22px;
-}
-.recommend_wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.recommend_wrapper .mod_row{
-    display: grid;
-    justify-self: center;
-    align-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 20px 30px;
-}
-
-
-@media (max-width: 990px) {
-    .main {
-      padding: 0px 50px;
-    }
-    .main-search{
-      padding: 50px 50px 10px 50px;
-    }
-    .content .key, .content .value{
-        font-size: 16px;
-    }
-    .content {
-        padding-top: 50px;
-    }
-}
-
-@media (max-width: 1360px) {
-    .recommend_wrapper .mod_row{
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 10px 10px;
-    }
-}
-
-
-@media (max-width: 650px) {
-    .recommend_wrapper .mod_row{
-        grid-template-columns: 1fr 1fr;
-    }
-}
+  }
+  
+  .movie-detail{
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  
+  .movie-detail .image, .movie-detail .content{
+      height: 400px;
+      width: 100%;
+      color: white;
+  }
+  .content .row {
+      padding: 5px 20px;
+      margin: 0;
+  }
+  .content .key {
+      text-align: left;
+      margin: 5px auto;
+      font-weight: 600;
+      font-size: 18px;
+  }
+  .content .key::after{
+      content: " :"
+  }
+  .content .value{
+      text-align: left;
+      margin: 5px auto;
+      font-weight: 400;
+      font-size: 17px;
+  }
+  
+  .image{
+      display: flex;
+      justify-content: center;
+      overflow: hidden;   
+  }
+  .image img{
+      margin: 0 auto;
+      box-shadow: 0 5px 5px rgb(47, 39, 46);
+      max-width: 300px;
+      height: 400px;
+      border-radius: 5px;
+      border: 3px solid #73AD21;
+  }
+  
+  .recommendations{
+      margin-top: 20px;
+      height: auto;
+      width: 100%;
+      color:white;
+  }
+  .recommendations .label{
+      font-size: 22px;
+  }
+  .recommend_wrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .recommend_wrapper .mod_row{
+      display: grid;
+      justify-self: center;
+      align-items: center;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-gap: 20px 30px;
+  }
+  
+  
+  @media (max-width: 990px) {
+      .main {
+        padding: 0px 50px;
+      }
+      .main-search{
+        padding: 50px 50px 10px 50px;
+      }
+      .content .key, .content .value{
+          font-size: 16px;
+      }
+      .content {
+          padding-top: 50px;
+      }
+  }
+  
+  @media (max-width: 1360px) {
+      .recommend_wrapper .mod_row{
+          grid-template-columns: 1fr 1fr 1fr;
+          grid-gap: 10px 10px;
+      }
+  }
+  
+  
+  @media (max-width: 650px) {
+      .recommend_wrapper .mod_row{
+          grid-template-columns: 1fr 1fr;
+      }
+  }
