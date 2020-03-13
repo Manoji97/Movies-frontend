@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 import M from "materialize-css";
 
-import * as TabComponents from "./tabcomponent";
+import SearchTab from "./searchtab";
+import UserTab from "./usertab";
 
 class Sidenav extends Component {
   componentDidMount() {
@@ -31,11 +32,11 @@ class Sidenav extends Component {
           </div>
         </div>
         <div id="search" className="row">
-          <TabComponents.SearchTab />
+          <SearchTab />
         </div>
 
         <div id="user" className="row">
-          <TabComponents.UserTab />
+          <UserTab />
         </div>
       </ul>
     );
