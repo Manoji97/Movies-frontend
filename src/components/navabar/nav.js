@@ -6,7 +6,7 @@ import Sidenav from "./sidenav";
 
 class Nav extends Component {
   state = {
-    scrolled: 0
+    scrolled: true
   };
 
   componentDidMount() {
