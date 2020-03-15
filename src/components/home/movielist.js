@@ -6,17 +6,20 @@ import Footer from "./footer";
 
 import { Link } from "react-router-dom";
 
-import * as actioncreators from "../../store/actions/actioncreators";
 import { connect } from "react-redux";
+import * as actioncreators from "../../store/actions/actioncreators";
 
 class MovieList extends Component {
   state = {
     pagenumber: 1
   };
 
-  componentDidMount() {
-    this.props.performonHomeLoad();
-  }
+  handle_request = num => {
+    if ((num !== this.state.pagenumber) & (num >= 1)) {
+      this.setState({ pagenumber: num });
+      this.props.performtopage(num);
+    }
+  };
 
   render() {
     let Moviedata_list = this.props.pmoviedata_list;
@@ -37,6 +40,7 @@ class MovieList extends Component {
       <section className="main">
         <div className="row">{Movies}</div>
         <Footer
+          onclick={this.handle_request}
           count={Moviedata_list.count}
           presentpage={this.state.pagenumber}
           links={{
@@ -57,7 +61,7 @@ const mapstatetoprops = state => {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    performonHomeLoad: () => dispatch(actioncreators.onHomeLoad())
+    performtopage: page_num => dispatch(actioncreators.onHomeLoad(page_num))
   };
 };
 

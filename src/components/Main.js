@@ -7,7 +7,14 @@ import Detail from "./detail/detail";
 
 import { Route, Switch } from "react-router-dom";
 
+import { connect } from "react-redux";
+import * as actioncreators from "../store/actions/actioncreators";
+
 class Main extends Component {
+  componentDidMount() {
+    this.props.performonHomeLoad();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -22,4 +29,10 @@ class Main extends Component {
   }
 }
 
-export default Main;
+const mapdispatchtoprops = dispatch => {
+  return {
+    performonHomeLoad: () => dispatch(actioncreators.onHomeLoad())
+  };
+};
+
+export default connect(null, mapdispatchtoprops)(Main);

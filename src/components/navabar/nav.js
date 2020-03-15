@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 
 import Sidenav from "./sidenav";
 
+import { connect } from "react-redux";
+import * as actioncreators from "../../store/actions/actioncreators";
+
 class Nav extends Component {
   state = {
     scrolled: true
@@ -20,6 +23,10 @@ class Nav extends Component {
       }
     });
   }
+
+  clickLogo = () => {
+    this.props.performonHomeLoad();
+  };
 
   render() {
     const navcolour = {
@@ -47,7 +54,11 @@ class Nav extends Component {
                 >
                   <i className="acc material-icons">account_circle</i>
                 </a>
-                <Link to="/" className="brand-logo center">
+                <Link
+                  to="/"
+                  onClick={this.clickLogo}
+                  className="brand-logo center"
+                >
                   Movies
                 </Link>
               </div>
@@ -66,4 +77,10 @@ class Nav extends Component {
   }
 }
 
-export default Nav;
+const mapdispatchtoprops = dispatch => {
+  return {
+    performonHomeLoad: () => dispatch(actioncreators.onHomeLoad())
+  };
+};
+
+export default connect(null, mapdispatchtoprops)(Nav);

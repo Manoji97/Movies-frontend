@@ -15,7 +15,7 @@ class MovieDetail extends Component {
         <div className="movie-detail row">
           <div className="col s12 m5 l4">
             <div className="image">
-              <img src={this.props.pmovie_data.img_link} alt="" />
+              <img src={this.props.pmovie_data.Image_link} alt="" />
             </div>
           </div>
           <div className="col s12 m7 l8">
@@ -25,15 +25,15 @@ class MovieDetail extends Component {
                   <p className="key">Title</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.props.pmovie_data.title}</p>
+                  <p className="value">{this.props.pmovie_data.Title}</p>
                 </div>
               </div>
               <div className="row">
                 <div className="col m6 l4">
-                  <p className="key">Language</p>
+                  <p className="key">Runtime</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.props.pmovie_data.language}</p>
+                  <p className="value">{this.props.pmovie_data.RunTime}</p>
                 </div>
               </div>
               <div className="row">
@@ -49,7 +49,7 @@ class MovieDetail extends Component {
                   <p className="key">Rating</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.props.pmovie_data.rating}</p>
+                  <p className="value">{this.props.pmovie_data.Rating}</p>
                 </div>
               </div>
               <div className="row">
@@ -57,7 +57,7 @@ class MovieDetail extends Component {
                   <p className="key">No of users rated</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.props.pmovie_data.no_0f_users}</p>
+                  <p className="value">{this.props.pmovie_data.Num_ratings}</p>
                 </div>
               </div>
               <div className="row">

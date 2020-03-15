@@ -17,13 +17,19 @@ const initialstate = {
 
 const reducer = (state = initialstate, action) => {
   switch (action.type) {
+    case actiontypes.onHomeLoad:
+      state = {
+        ...state,
+        datalist: action.value
+      };
+      break;
     case actiontypes.doMainsearch:
       state = {
         ...state,
         datalist: action.value
       };
       break;
-    case actiontypes.onHomeLoad:
+    case actiontypes.doSearch:
       state = {
         ...state,
         datalist: action.value

@@ -9,7 +9,7 @@ import * as actioncreators from "../../store/actions/actioncreators";
 class SearchTab extends Component {
   state = {
     search: {
-      name: "",
+      title: "",
       genre: "",
       year: "",
       rating: ""
@@ -104,7 +104,7 @@ class SearchTab extends Component {
           <a
             id="search-btn"
             className="waves-effect waves-light btn"
-            onClick={() => this.props.performsearch(this.state)}
+            onClick={() => this.props.performsearch(this.state.search)}
           >
             <i className="material-icons right">search</i>Search
           </a>

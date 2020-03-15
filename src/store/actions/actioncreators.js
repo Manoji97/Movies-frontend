@@ -9,9 +9,9 @@ export const HomeLoad = movielistdata => {
   };
 };
 
-export const onHomeLoad = () => {
+export const onHomeLoad = (page_num = 1) => {
   return dispatch => {
-    axios.Movielink.get()
+    axios.Movielink.get("?page=" + page_num)
       .then(res => {
         dispatch(HomeLoad(res.data));
       })
@@ -19,68 +19,61 @@ export const onHomeLoad = () => {
   };
 };
 
-export const Mainsearch = search_value => {
+export const Mainsearch = searchMoviedata_list => {
   return {
     type: actiontypes.doMainsearch,
-    value: [
-      {
-        title: "ironman",
-        rating: "9/10"
-      },
-      {
-        title: "ironman 2",
-        rating: "8.5/10"
-      }
-    ]
+    value: searchMoviedata_list
   };
 };
 
 export const doMainsearch = search_value => {
   return dispatch => {
-    dispatch(Mainsearch(search_value));
+    axios.Movielink.get("?title=" + search_value)
+      .then(res => {
+        dispatch(Mainsearch(res.data));
+      })
+      .catch(err => console.log(err));
   };
 };
 
 export const Search = search_data => {
   return {
     type: actiontypes.doSearch,
-    value: [
-      {
-        title: "ironman",
-        rating: "9/10"
-      },
-      {
-        title: "ironman 2",
-        rating: "8.5/10"
-      }
-    ]
+    value: search_data
   };
 };
 
 export const doSearch = search_data => {
   return dispatch => {
-    dispatch(Search(search_data));
+    axios.Movielink.get(
+      "?title=" +
+        search_data.title +
+        "&year=" +
+        search_data.year +
+        "&rating=" +
+        search_data.rating +
+        "&genre=" +
+        search_data.genre
+    )
+      .then(res => dispatch(Search(res.data)))
+      .catch(err => console.log(err));
   };
 };
 
-export const Detail = movie_id => {
+export const Detail = movie_data => {
   return {
     type: actiontypes.goDetail,
-    value: {
-      title: "Ironamn 2008",
-      language: "English",
-      genres: "action superhero",
-      rating: "9/10",
-      no_0f_users: "34673",
-      your_rating: "9/10",
-      directors: "nolan russo"
-    }
+    value: movie_data
   };
 };
 
 export const goDetail = movie_id => {
   return dispatch => {
-    dispatch(Detail(movie_id));
+    axios.Movielink.get("/" + movie_id)
+      .then(res => {
+        dispatch(Detail(res.data));
+      })
+      .catch(err => console.log(err));
   };
 };
 
