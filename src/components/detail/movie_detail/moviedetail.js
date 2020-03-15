@@ -1,24 +1,21 @@
 import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 
+import { connect } from "react-redux";
+import * as actioncreators from "../../../store/actions/actioncreators";
+
 class MovieDetail extends Component {
-  movie = {
-    title: "Interstellar 2014",
-    img_link: "https://www.movienewsletters.net/photos/156876R1.jpg",
-    language: "English, spanish, tamil, german",
-    genres: "action, adventure, horror, thriller",
-    rating: "4/5",
-    number_of_users: "63521",
-    your_rating: "4/5",
-    directors: "Nolan, cameron, shankar, murugadas, ks ravikumar"
-  };
+  componentDidMount() {
+    this.props.performgoDetail(this.props.movieId);
+  }
+
   render() {
     return (
       <section className="mian">
         <div className="movie-detail row">
           <div className="col s12 m5 l4">
             <div className="image">
-              <img src={this.movie.img_link} alt="" />
+              <img src={this.props.pmovie_data.img_link} alt="" />
             </div>
           </div>
           <div className="col s12 m7 l8">
@@ -28,7 +25,7 @@ class MovieDetail extends Component {
                   <p className="key">Title</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.movie.title}</p>
+                  <p className="value">{this.props.pmovie_data.title}</p>
                 </div>
               </div>
               <div className="row">
@@ -36,7 +33,7 @@ class MovieDetail extends Component {
                   <p className="key">Language</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.movie.language}</p>
+                  <p className="value">{this.props.pmovie_data.language}</p>
                 </div>
               </div>
               <div className="row">
@@ -44,7 +41,7 @@ class MovieDetail extends Component {
                   <p className="key">Genres</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.movie.genres}</p>
+                  <p className="value">{this.props.pmovie_data.genres}</p>
                 </div>
               </div>
               <div className="row">
@@ -52,7 +49,7 @@ class MovieDetail extends Component {
                   <p className="key">Rating</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.movie.rating}</p>
+                  <p className="value">{this.props.pmovie_data.rating}</p>
                 </div>
               </div>
               <div className="row">
@@ -60,7 +57,7 @@ class MovieDetail extends Component {
                   <p className="key">No of users rated</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.movie.number_of_users}</p>
+                  <p className="value">{this.props.pmovie_data.no_0f_users}</p>
                 </div>
               </div>
               <div className="row">
@@ -68,7 +65,7 @@ class MovieDetail extends Component {
                   <p className="key">your Rating</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.movie.your_rating}</p>
+                  <p className="value">{this.props.pmovie_data.your_rating}</p>
                 </div>
               </div>
               <div className="row">
@@ -76,7 +73,7 @@ class MovieDetail extends Component {
                   <p className="key">Directors</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.movie.directors}</p>
+                  <p className="value">{this.props.pmovie_data.directors}</p>
                 </div>
               </div>
             </div>
@@ -87,4 +84,16 @@ class MovieDetail extends Component {
   }
 }
 
-export default MovieDetail;
+const mapstatetoprops = state => {
+  return {
+    pmovie_data: state.moviedata
+  };
+};
+
+const mapdispatchtoprops = dispatch => {
+  return {
+    performgoDetail: movie_id => dispatch(actioncreators.goDetail(movie_id))
+  };
+};
+
+export default connect(mapstatetoprops, mapdispatchtoprops)(MovieDetail);

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 import M from "materialize-css";
 
+import { Link } from "react-router-dom";
+
 import Sidenav from "./sidenav";
 
 class Nav extends Component {
@@ -45,9 +47,9 @@ class Nav extends Component {
                 >
                   <i className="acc material-icons">account_circle</i>
                 </a>
-                <a href="#" className="brand-logo center">
+                <Link to="/" className="brand-logo center">
                   Movies
-                </a>
+                </Link>
               </div>
             </div>
           </nav>

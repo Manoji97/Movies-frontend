@@ -1,19 +1,18 @@
 import * as actiontypes from "../actions/actiontypes";
 
 const initialstate = {
-  mainsearch: "",
-  search: {
-    moviename: "",
-    genre: "",
-    year: "",
-    rating: ""
-  },
   user: {
     username: "",
-    password: "",
     isLoggedin: false,
     token: ""
-  }
+  },
+  datalist: {
+    count: "",
+    next: "",
+    previous: "",
+    results: []
+  },
+  moviedata: {}
 };
 
 const reducer = (state = initialstate, action) => {
@@ -21,29 +20,22 @@ const reducer = (state = initialstate, action) => {
     case actiontypes.doMainsearch:
       state = {
         ...state,
-        mainsearch: action.value
+        datalist: action.value
       };
       break;
-
-    case actiontypes.doSearch:
+    case actiontypes.onHomeLoad:
       state = {
         ...state,
-        search: action.value
+        datalist: action.value
       };
       break;
-
-    case actiontypes.doLogin:
+    case actiontypes.goDetail:
       state = {
         ...state,
-        user: {
-          ...state.user,
-          username: action.value.user.username,
-          password: action.value.user.password
-        }
+        moviedata: action.value
       };
       break;
   }
-  console.log(state);
   return state;
 };
 

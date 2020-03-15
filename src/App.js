@@ -4,14 +4,22 @@ import Main from "./components/Main";
 
 import { BrowserRouter } from "react-router-dom";
 
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 
 import ScrollToTop from "./components/scrollup";
 
 import reducer from "./store/reducers/reducer";
+import thunk from "redux-thunk";
 
-const store = createStore(reducer);
+const composeEnhancers =
+  (typeof window !== "undefined" &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
+
+const enhancer = composeEnhancers(applyMiddleware(thunk));
+
+const store = createStore(reducer, enhancer);
 
 export default function App() {
   return (

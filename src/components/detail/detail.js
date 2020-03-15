@@ -6,7 +6,7 @@ import Recommendations from "./recommendation/recommendationlist";
 const Detail = props => {
   return (
     <React.Fragment>
-      <MovieDetail />
+      <MovieDetail movieId={props.match.params.id} />
       <Recommendations />
     </React.Fragment>
   );

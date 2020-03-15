@@ -6,28 +6,28 @@ import Footer from "./footer";
 
 import { Link } from "react-router-dom";
 
+import * as actioncreators from "../../store/actions/actioncreators";
+import { connect } from "react-redux";
+
 class MovieList extends Component {
   state = {
     pagenumber: 1
   };
 
-  data = {
-    count: 3,
-    movielist: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    next: "n_link",
-    previous: null
-  };
+  componentDidMount() {
+    this.props.performonHomeLoad();
+  }
 
   render() {
-    let Movies = this.data.movielist.map((item, index) => {
+    let Moviedata_list = this.props.pmoviedata_list;
+    let Movies = Moviedata_list.results.map(item => {
       return (
         <div className="col s12 m6 l4 xl3">
-          <Link to={"/" + index} key={index}>
+          <Link to={"/" + item.id} key={item.id}>
             <cards.MovieCard
-              key={index}
-              image_link="https://www.movienewsletters.net/photos/156876R1.jpg"
-              movie_name="Ironman 3"
-              movie_rating="9/10"
+              image_link={item.Image_link}
+              movie_name={item.Title}
+              movie_rating={item.Rating}
             />
           </Link>
         </div>
@@ -37,11 +37,11 @@ class MovieList extends Component {
       <section className="main">
         <div className="row">{Movies}</div>
         <Footer
-          count={this.data.count}
-          presentpage={1}
+          count={Moviedata_list.count}
+          presentpage={this.state.pagenumber}
           links={{
-            next: this.data.next,
-            previous: this.data.previous
+            next: Moviedata_list.next,
+            previous: Moviedata_list.previous
           }}
         />
       </section>
@@ -49,4 +49,16 @@ class MovieList extends Component {
   }
 }
 
-export default MovieList;
+const mapstatetoprops = state => {
+  return {
+    pmoviedata_list: state.datalist
+  };
+};
+
+const mapdispatchtoprops = dispatch => {
+  return {
+    performonHomeLoad: () => dispatch(actioncreators.onHomeLoad())
+  };
+};
+
+export default connect(mapstatetoprops, mapdispatchtoprops)(MovieList);
