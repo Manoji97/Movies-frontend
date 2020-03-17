@@ -70,6 +70,7 @@ class Nav extends Component {
           className="sidenav"
           ref={sidenav => (this.sidenav = sidenav)}
         >
+          <h5>{this.props.pusername}</h5>
           <Sidenav />
         </div>
       </React.Fragment>
@@ -77,10 +78,16 @@ class Nav extends Component {
   }
 }
 
+const mapstatetoprops = state => {
+  return {
+    pusername: state.user.username
+  };
+};
+
 const mapdispatchtoprops = dispatch => {
   return {
     performonHomeLoad: () => dispatch(actioncreators.onHomeLoad())
   };
 };
 
-export default connect(null, mapdispatchtoprops)(Nav);
+export default connect(mapstatetoprops, mapdispatchtoprops)(Nav);

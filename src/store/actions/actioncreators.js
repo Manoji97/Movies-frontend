@@ -28,7 +28,7 @@ export const Mainsearch = searchMoviedata_list => {
 
 export const doMainsearch = search_value => {
   return dispatch => {
-    axios.Movielink.get("?title=" + search_value)
+    axios.Movielink.get("?ms=" + search_value)
       .then(res => {
         dispatch(Mainsearch(res.data));
       })
@@ -77,9 +77,26 @@ export const goDetail = movie_id => {
   };
 };
 
-export const doLogin = user_info => {
+export const Login = (login_data, username) => {
   return {
     type: actiontypes.doLogin,
-    value: user_info
+    value: {
+      username: username,
+      token: login_data.token
+    }
+  };
+};
+
+export const doLogin = user_info => {
+  return dispatch => {
+    axios.Loginlink.post("auth/", user_info)
+      .then(res => dispatch(Login(res.data, user_info.username)))
+      .catch(err => console.log(err));
+  };
+};
+
+export const doLogout = () => {
+  return {
+    type: actiontypes.doLogout
   };
 };

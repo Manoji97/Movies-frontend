@@ -3,6 +3,8 @@ import "materialize-css/dist/css/materialize.css";
 
 import { connect } from "react-redux";
 
+import { withRouter } from "react-router-dom";
+
 import * as actioncreators from "../../store/actions/actioncreators";
 
 class MainSearch extends Component {
@@ -17,6 +19,7 @@ class MainSearch extends Component {
   handle_enter = e => {
     if (e.key === "Enter") {
       this.props.performMainsearch(this.state.mainsearch);
+      this.props.history.push("/");
     }
   };
 
@@ -52,4 +55,6 @@ const mapdispatchtoprops = dispatch => {
   };
 };
 
-export default connect(mapstatetoprops, mapdispatchtoprops)(MainSearch);
+export default withRouter(
+  connect(mapstatetoprops, mapdispatchtoprops)(MainSearch)
+);

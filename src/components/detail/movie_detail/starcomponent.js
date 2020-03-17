@@ -2,19 +2,16 @@ import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 import styled from "styled-components";
 
-const ii = styled.i`
-  cursor: pointer;
-  padding: 5px;
-`;
-
 class Star extends Component {
   state = {
     edit: false,
+    original: this.props.rating,
     rating: 0,
     temp_rating: 0
   };
   componentDidMount() {
-    this.setState({ rating: this.props.rating });
+    this.setState({ rating: this.state.original });
+    console.log("m");
   }
 
   onclick = i => {
@@ -26,17 +23,21 @@ class Star extends Component {
   onmouseout = () => {
     this.setState({ temp_rating: 0 });
   };
+  posturrating = () => {
+    // code for posting the rating to db
+    this.setState(this.setState({ original: this.state.rating }));
+  };
 
   render() {
     let stars = [];
-    let classes = "material-icons left ";
+    let classes = "material-icons ";
     for (let i = 1; i <= 5; i++) {
       classes +=
         (i <= this.state.rating) | (i <= this.state.temp_rating)
           ? "yellow-text"
           : "grey-text";
       stars.push(
-        <ii
+        <i
           className={classes}
           key={i}
           onClick={this.state.edit ? () => this.onclick(i) : null}
@@ -44,21 +45,30 @@ class Star extends Component {
           onMouseOut={this.state.edit ? this.onmouseout : null}
         >
           star
-        </ii>
+        </i>
       );
-      classes = "material-icons left ";
+      classes = "material-icons ";
     }
+    let check = (
+      <i className="material-icons c teal-text" onClick={this.posturrating}>
+        check
+      </i>
+    );
 
     return (
-      <React.Fragment>
-        <ii
+      <div className="star">
+        {stars}
+        {this.state.edit ? check : null}
+        <i
           className="material-icons right white-text"
-          onClick={() => this.setState({ edit: true })}
+          onClick={pstate => {
+            this.setState({ edit: !this.state.edit, rating: pstate.original });
+            console.log(this.state);
+          }}
         >
           create
-        </ii>
-        {stars}
-      </React.Fragment>
+        </i>
+      </div>
     );
   }
 }

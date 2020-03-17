@@ -41,6 +41,28 @@ const reducer = (state = initialstate, action) => {
         moviedata: action.value
       };
       break;
+    case actiontypes.doLogin:
+      state = {
+        ...state,
+        user: {
+          ...state.user,
+          username: action.value.username,
+          token: action.value.token,
+          isLoggedin: true
+        }
+      };
+      break;
+    case actiontypes.doLogout:
+      state = {
+        ...state,
+        user: {
+          ...state.user,
+          username: "",
+          token: "",
+          isLoggedin: false
+        }
+      };
+      break;
   }
   return state;
 };

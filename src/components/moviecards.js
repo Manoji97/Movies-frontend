@@ -36,6 +36,10 @@ const Card = styled.div`
   border-radius: 5px;
   border: 3px solid rgb(222, 222, 222);
   box-shadow: 0 5px 10px rgb(47, 39, 46);
+
+  &:hover {
+    border: 3px solid #73ad21;
+  }
 `;
 
 {

@@ -3,6 +3,8 @@ import "materialize-css/dist/css/materialize.css";
 
 import * as Elements from "../elements";
 
+import { withRouter } from "react-router-dom";
+
 import { connect } from "react-redux";
 import * as actioncreators from "../../store/actions/actioncreators";
 
@@ -42,7 +44,7 @@ class SearchTab extends Component {
 
   name_handler = e => {
     this.setState({
-      search: { ...this.state.search, name: e.target.value }
+      search: { ...this.state.search, title: e.target.value }
     });
   };
 
@@ -104,7 +106,10 @@ class SearchTab extends Component {
           <a
             id="search-btn"
             className="waves-effect waves-light btn"
-            onClick={() => this.props.performsearch(this.state.search)}
+            onClick={() => {
+              this.props.performsearch(this.state.search);
+              this.props.history.push("/");
+            }}
           >
             <i className="material-icons right">search</i>Search
           </a>
@@ -126,4 +131,6 @@ const mapdispatchtoprops = dispatch => {
   };
 };
 
-export default connect(mapstatetoprops, mapdispatchtoprops)(SearchTab);
+export default withRouter(
+  connect(mapstatetoprops, mapdispatchtoprops)(SearchTab)
+);

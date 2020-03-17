@@ -11,6 +11,23 @@ class MovieDetail extends Component {
     this.props.performgoDetail(this.props.movieId);
   }
 
+  joingenres = persondata => {
+    if (persondata) {
+      let genresnames = persondata.map(item => {
+        return item.genre;
+      });
+      return genresnames.join(", ");
+    }
+  };
+  joinnames = persondata => {
+    if (persondata) {
+      let personnames = persondata.map(item => {
+        return item.Name;
+      });
+      return personnames.join(", ");
+    }
+  };
+
   render() {
     return (
       <section className="mian">
@@ -43,7 +60,9 @@ class MovieDetail extends Component {
                   <p className="key">Genres</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.props.pmovie_data.genres}</p>
+                  <p className="value">
+                    {this.joingenres(this.props.pmovie_data.Genres)}
+                  </p>
                 </div>
               </div>
               <div className="row">
@@ -68,7 +87,7 @@ class MovieDetail extends Component {
                 </div>
                 <div className="col m6 l8">
                   <p className="value">
-                    <Star rating={4} />
+                    <Star rating={2} />
                   </p>
                 </div>
               </div>
@@ -77,7 +96,19 @@ class MovieDetail extends Component {
                   <p className="key">Directors</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.props.pmovie_data.directors}</p>
+                  <p className="value">
+                    {this.joinnames(this.props.pmovie_data.Directors)}
+                  </p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col m6 l4">
+                  <p className="key">Writers</p>
+                </div>
+                <div className="col m6 l8">
+                  <p className="value">
+                    {this.joinnames(this.props.pmovie_data.Writers)}
+                  </p>
                 </div>
               </div>
             </div>
