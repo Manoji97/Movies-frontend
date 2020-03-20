@@ -6,6 +6,7 @@ import * as Elements from "../elements";
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
+import * as actioncreators from "../../store/actions/actioncreators";
 
 class SearchTab extends Component {
   state = {
@@ -80,6 +81,7 @@ class SearchTab extends Component {
         ? "&rating=" + this.state.search.rating
         : "";
     this.props.history.push("/?" + q_string);
+    this.props.p_pagenum();
   };
 
   render() {
@@ -134,8 +136,7 @@ class SearchTab extends Component {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    addsearchstring: searchurl =>
-      dispatch(actioncreators.addSearchUrl(searchurl))
+    p_pagenum: () => dispatch(actioncreators.Pagenumone())
   };
 };
 

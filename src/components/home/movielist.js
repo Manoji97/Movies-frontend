@@ -11,55 +11,51 @@ import queryString from "query-string";
 
 class MovieList extends Component {
   state = {
-    pagenumber: 1
+    pagenumber: this.props.p_statepage
   };
 
   componentDidMount() {
     if (this.props.location.search) {
       let searchParams = queryString.parse(this.props.location.search);
-      this.props.performLoad(
-        this.get_searchparam(null, searchParams, this.props.psearch_string)
-      );
+      this.props.performLoad(this.get_searchparam(searchParams));
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.location.search !== this.props.location.search) {
       let searchParams = queryString.parse(this.props.location.search);
-      let pageparams = { page: searchParams.page };
-      delete searchParams.page;
-      this.props.performLoad(
-        this.get_pagenumber(pageparams),
-        this.get_searchparam(searchParams),
-        this.props.psearch_string
-      );
+      this.props.performLoad(this.get_searchparam(searchParams));
     }
   }
 
-  get_pagenumber = params => {
-    if (params.page) {
-      return params.page;
-    }
-    return null;
-  };
-
   get_searchparam = params => {
     if (params) {
-      if (Object.keys(params).length > 0) {
+      let len = Object.keys(params).length > 0;
+      if (len) {
+        if (len === 1) {
+          if (params.page) {
+            return {
+              searchtype: "pagination",
+              query: params.page
+            };
+          }
+        }
         if (params.ms) {
-          this.setState({ pagenumber: 1 });
           return {
             search_type: "mainsearch",
-            query: params.ms
+            query: {
+              ms: params.ms,
+              page: params.page ? params.page : ""
+            }
           };
         }
         let search_params = {
           title: params.title ? params.title : "",
           rating: params.rating ? params.rating : "",
           year: params.year ? params.year : "",
-          genre: params.genre ? params.genre : ""
+          genre: params.genre ? params.genre : "",
+          page: params.page ? params.page : ""
         };
-        this.setState({ pagenumber: 1 });
         return {
           search_type: "search",
           query: search_params
@@ -72,7 +68,10 @@ class MovieList extends Component {
   handle_request = (e, num) => {
     e.preventDefault();
     this.setState({ pagenumber: num }, () => {
-      this.props.history.push("/?page=" + this.state.pagenumber);
+      this.props.history.push(
+        this.props.p_searchurl + "&page=" + this.state.pagenumber
+      );
+      this.props.p_pagenum(num);
     });
   };
 
@@ -97,7 +96,7 @@ class MovieList extends Component {
         <Footer
           onclick={this.handle_request}
           count={Moviedata_list.count}
-          presentpage={this.state.pagenumber}
+          presentpage={this.props.p_statepage}
         />
       </section>
     );
@@ -107,14 +106,16 @@ class MovieList extends Component {
 const mapstatetoprops = state => {
   return {
     pmoviedata_list: state.datalist,
-    psearch_string: state.searchstring
+    p_searchurl: state.searchstring,
+    p_statepage: state.pagenumber
   };
 };
 
 const mapdispatchtoprops = dispatch => {
   return {
-    performLoad: (pageparams, searchParams, searchurl) =>
-      dispatch(actioncreators.onSingleLoad(pageparams, searchParams, searchurl))
+    performLoad: searchParams =>
+      dispatch(actioncreators.onSingleLoad(searchParams)),
+    p_pagenum: num => dispatch(actioncreators.Pagenumone(num))
   };
 };
 

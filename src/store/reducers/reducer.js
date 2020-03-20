@@ -1,7 +1,8 @@
 import * as actiontypes from "../actions/actiontypes";
 
 const initialstate = {
-  searchstring: "",
+  searchstring: "/?",
+  pagenumber: 1,
   user: {
     username: "",
     isLoggedin: false,
@@ -25,12 +26,11 @@ const reducer = (state = initialstate, action) => {
         searchstring: action.searchstring
       };
       break;
-    case actiontypes.changeSearchUrl:
+    case actiontypes.pagenumone:
       state = {
         ...state,
-        searchstring: action.value
+        pagenumber: action.value
       };
-      break;
 
     case actiontypes.goDetail:
       state = {

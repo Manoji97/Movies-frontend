@@ -6,4 +6,4 @@ export const onHomeLoad = "onHomeLoad";
 export const goDetail = "goDetial";
 
 export const singleHomeLoad = "singleHomeLoad";
-export const changeSearchUrl = "changeSearchUrl";
+export const pagenumone = "pagenumone";

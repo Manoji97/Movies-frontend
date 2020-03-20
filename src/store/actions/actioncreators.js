@@ -2,13 +2,6 @@ import * as actiontypes from "./actiontypes";
 
 import * as axios from "../../axioscreation";
 
-export const addSearchUrl = searchurl => {
-  return {
-    type: actiontypes.changeSearchUrl,
-    value: searchurl
-  };
-};
-
 export const SingleHomeLoad = (movieListData, searchquery) => {
   return {
     type: actiontypes.singleHomeLoad,
@@ -17,52 +10,47 @@ export const SingleHomeLoad = (movieListData, searchquery) => {
   };
 };
 
-export const onSingleLoad = (
-  pagedata = null,
-  searchdata = null,
-  searchstring = ""
-) => {
+const querygenerator = searchobj => {
   let searchquery = "";
-  if (searchdata) {
-    console.log("search");
-    if (searchdata.search_type === "mainsearch") {
-      searchquery = "?ms=" + searchdata.query;
-      return dispatch => {
-        axios.Movielink.get(searchquery)
-          .then(res => {
-            dispatch(SingleHomeLoad(res.data, searchquery));
-          })
-          .catch(err => console.log(err));
-      };
-    } else if (searchdata.search_type === "search") {
-      searchquery =
-        "?title=" +
-        searchdata.query.title +
-        "&year=" +
-        searchdata.query.year +
-        "&rating=" +
-        searchdata.query.rating +
-        "&genre=" +
-        searchdata.query.genre;
-      return dispatch => {
-        axios.Movielink.get(searchquery)
-          .then(res => dispatch(SingleHomeLoad(res.data, searchquery)))
-          .catch(err => console.log(err));
-      };
+  for (const query in searchobj) {
+    if (query !== "page") {
+      searchquery +=
+        searchobj[query] !== "" ? `&${query}=${searchobj[query]}` : "";
     }
-  } else if (pagedata) {
-    let pagequery = searchstring !== "" ? "&page=" : "?page=";
+  }
+  searchquery = searchquery.slice(1);
+  let searchwithpage = searchquery;
+  searchwithpage += searchobj["page"] ? `&page=${searchobj["page"]}` : "";
+  return {
+    query: searchquery,
+    querywithpage: searchwithpage
+  };
+};
+
+export const onSingleLoad = (searchdata = null) => {
+  if (searchdata) {
+    let query = "/?";
+    let allquery = querygenerator(searchdata.query);
+    query += allquery.querywithpage;
+
     return dispatch => {
-      axios.Movielink.get(searchstring + pagequery + pagedata)
-        .then(res => dispatch(SingleHomeLoad(res.data, searchstring)))
+      axios.Movielink.get(query)
+        .then(res => dispatch(SingleHomeLoad(res.data, "/?" + allquery.query)))
         .catch(err => console.log(err));
     };
   }
   return dispatch => {
     console.log("no search");
     axios.Movielink.get()
-      .then(res => dispatch(SingleHomeLoad(res.data)))
+      .then(res => dispatch(SingleHomeLoad(res.data, "/?")))
       .catch(err => console.log(err));
+  };
+};
+
+export const Pagenumone = (num = 1) => {
+  return {
+    type: actiontypes.pagenumone,
+    value: num
   };
 };
 

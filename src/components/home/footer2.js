@@ -2,14 +2,11 @@ import React from "react";
 import "materialize-css/dist/css/materialize.css";
 
 const pagenumbers = (page_num, page_count) => {
-  let pages = [1, 2, 3, 4, 5];
-  if (page_num > 3) {
-    pages = [];
-    for (let count = page_num - 2; count <= page_num + 2; count++) {
-      if (count < page_count) {
-        pages.push(count);
-      }
-    }
+  let pages = [];
+  page_num -= 2;
+  while ((pages.length < 5) & (page_count >= page_num)) {
+    if (page_num >= 1) pages.push(page_num);
+    page_num += 1;
   }
   return pages;
 };
@@ -18,10 +15,10 @@ const Footer = props => {
   let pagination_list = [];
   let pagecount = Math.ceil(props.count / 10);
   let pagenumber = props.presentpage;
-  let pages = pagenumbers(props.presentpage, pagecount);
+  let pages = pagenumbers(pagenumber, pagecount);
 
-  pagination_list = pages.map((number, index) => {
-    let classes = number === props.presentpage ? "active" : "waves-effect";
+  pagination_list = pages.map(number => {
+    let classes = number === pagenumber ? "active" : "waves-effect";
     return (
       <li
         className={classes}

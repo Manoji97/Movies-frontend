@@ -3,6 +3,7 @@ import "materialize-css/dist/css/materialize.css";
 
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import * as actioncreators from "../../store/actions/actioncreators";
 
 class MainSearch extends Component {
   state = {
@@ -15,11 +16,12 @@ class MainSearch extends Component {
 
   handle_enter = e => {
     if (e.key === "Enter") {
-      if (this.state.mainsearch.length > 1) {
+      if (this.state.mainsearch.length > 0) {
         this.props.history.push("/?ms=" + this.state.mainsearch);
       } else {
         this.props.history.push("/");
       }
+      this.props.p_pagenum();
     }
   };
 
@@ -45,8 +47,7 @@ class MainSearch extends Component {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    addsearchstring: searchurl =>
-      dispatch(actioncreators.addSearchUrl(searchurl))
+    p_pagenum: () => dispatch(actioncreators.Pagenumone())
   };
 };
 
