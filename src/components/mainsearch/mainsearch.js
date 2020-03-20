@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 class MainSearch extends Component {
   state = {
@@ -42,4 +43,11 @@ class MainSearch extends Component {
   }
 }
 
-export default withRouter(MainSearch);
+const mapdispatchtoprops = dispatch => {
+  return {
+    addsearchstring: searchurl =>
+      dispatch(actioncreators.addSearchUrl(searchurl))
+  };
+};
+
+export default withRouter(connect(null, mapdispatchtoprops)(MainSearch));

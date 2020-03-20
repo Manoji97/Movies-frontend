@@ -2,40 +2,61 @@ import * as actiontypes from "./actiontypes";
 
 import * as axios from "../../axioscreation";
 
-export const SingleHomeLoad = movieListData => {
+export const addSearchUrl = searchurl => {
   return {
-    type: actiontypes.singleHomeLoad,
-    value: movieListData
+    type: actiontypes.changeSearchUrl,
+    value: searchurl
   };
 };
 
-export const onSingleLoad = (pagelink = null, searchdata = null) => {
+export const SingleHomeLoad = (movieListData, searchquery) => {
+  return {
+    type: actiontypes.singleHomeLoad,
+    value: movieListData,
+    searchstring: searchquery
+  };
+};
+
+export const onSingleLoad = (
+  pagedata = null,
+  searchdata = null,
+  searchstring = ""
+) => {
+  let searchquery = "";
   if (searchdata) {
     console.log("search");
     if (searchdata.search_type === "mainsearch") {
+      searchquery = "?ms=" + searchdata.query;
       return dispatch => {
-        axios.Movielink.get("?ms=" + searchdata.query)
+        axios.Movielink.get(searchquery)
           .then(res => {
-            dispatch(SingleHomeLoad(res.data));
+            dispatch(SingleHomeLoad(res.data, searchquery));
           })
           .catch(err => console.log(err));
       };
     } else if (searchdata.search_type === "search") {
+      searchquery =
+        "?title=" +
+        searchdata.query.title +
+        "&year=" +
+        searchdata.query.year +
+        "&rating=" +
+        searchdata.query.rating +
+        "&genre=" +
+        searchdata.query.genre;
       return dispatch => {
-        axios.Movielink.get(
-          "?title=" +
-            searchdata.query.title +
-            "&year=" +
-            searchdata.query.year +
-            "&rating=" +
-            searchdata.query.rating +
-            "&genre=" +
-            searchdata.query.genre
-        )
-          .then(res => dispatch(SingleHomeLoad(res.data)))
+        axios.Movielink.get(searchquery)
+          .then(res => dispatch(SingleHomeLoad(res.data, searchquery)))
           .catch(err => console.log(err));
       };
     }
+  } else if (pagedata) {
+    let pagequery = searchstring !== "" ? "&page=" : "?page=";
+    return dispatch => {
+      axios.Movielink.get(searchstring + pagequery + pagedata)
+        .then(res => dispatch(SingleHomeLoad(res.data, searchstring)))
+        .catch(err => console.log(err));
+    };
   }
   return dispatch => {
     console.log("no search");

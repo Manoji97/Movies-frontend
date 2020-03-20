@@ -132,4 +132,11 @@ class SearchTab extends Component {
   }
 }
 
-export default withRouter(SearchTab);
+const mapdispatchtoprops = dispatch => {
+  return {
+    addsearchstring: searchurl =>
+      dispatch(actioncreators.addSearchUrl(searchurl))
+  };
+};
+
+export default withRouter(connect(null, mapdispatchtoprops)(SearchTab));

@@ -1,6 +1,7 @@
 import * as actiontypes from "../actions/actiontypes";
 
 const initialstate = {
+  searchstring: "",
   user: {
     username: "",
     isLoggedin: false,
@@ -20,7 +21,14 @@ const reducer = (state = initialstate, action) => {
     case actiontypes.singleHomeLoad:
       state = {
         ...state,
-        datalist: action.value
+        datalist: action.value,
+        searchstring: action.searchstring
+      };
+      break;
+    case actiontypes.changeSearchUrl:
+      state = {
+        ...state,
+        searchstring: action.value
       };
       break;
 
