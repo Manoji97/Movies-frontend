@@ -3,6 +3,7 @@ import * as actiontypes from "../actions/actiontypes";
 const initialstate = {
   searchstring: "/?",
   pagenumber: 1,
+  isLoading: false,
   user: {
     username: "",
     isLoggedin: false,
@@ -31,6 +32,13 @@ const reducer = (state = initialstate, action) => {
         ...state,
         pagenumber: action.value
       };
+      break;
+    case actiontypes.loading:
+      state = {
+        ...state,
+        isLoading: action.value
+      };
+      break;
 
     case actiontypes.goDetail:
       state = {

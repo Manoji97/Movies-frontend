@@ -1,31 +1,35 @@
 import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
-import styled from "styled-components";
 
 class Star extends Component {
   state = {
     edit: false,
-    original: this.props.rating,
-    rating: 0,
+    original: this.props.rating ? this.props.rating : 0,
+    rating: this.props.rating ? this.props.rating : 0,
     temp_rating: 0
   };
-  componentDidMount() {
-    this.setState({ rating: this.state.original });
-    console.log("m");
-  }
+  onclick = num => {
+    if (this.state.edit) {
+      this.setState({ rating: num });
+    }
+  };
+  onmouseover = num => {
+    if (this.state.edit) {
+      this.setState({ temp_rating: num });
+    }
+  };
+  onmouseout = num => {
+    if (this.state.edit) {
+      this.setState({ temp_rating: num });
+    }
+  };
 
-  onclick = i => {
-    this.setState({ rating: i });
+  edithandler = () => {
+    this.setState(pstate => ({ edit: !pstate.edit, rating: pstate.original }));
   };
-  onmouseover = i => {
-    this.setState({ temp_rating: i });
-  };
-  onmouseout = () => {
-    this.setState({ temp_rating: 0 });
-  };
-  posturrating = () => {
-    // code for posting the rating to db
-    this.setState(this.setState({ original: this.state.rating }));
+
+  sendrating = () => {
+    this.setState(pstate => ({ original: pstate.rating, edit: false }));
   };
 
   render() {
@@ -40,9 +44,9 @@ class Star extends Component {
         <i
           className={classes}
           key={i}
-          onClick={this.state.edit ? () => this.onclick(i) : null}
-          onMouseOver={this.state.edit ? () => this.onmouseover(i) : null}
-          onMouseOut={this.state.edit ? this.onmouseout : null}
+          onClick={() => this.onclick(i)}
+          onMouseOver={() => this.onmouseover(i)}
+          onMouseOut={this.onmouseout}
         >
           star
         </i>
@@ -50,7 +54,7 @@ class Star extends Component {
       classes = "material-icons ";
     }
     let check = (
-      <i className="material-icons c teal-text" onClick={this.posturrating}>
+      <i className="material-icons c teal-text" onClick={this.sendrating}>
         check
       </i>
     );
@@ -61,10 +65,7 @@ class Star extends Component {
         {this.state.edit ? check : null}
         <i
           className="material-icons right white-text"
-          onClick={pstate => {
-            this.setState({ edit: !this.state.edit, rating: pstate.original });
-            console.log(this.state);
-          }}
+          onClick={this.edithandler}
         >
           create
         </i>

@@ -2,6 +2,13 @@ import * as actiontypes from "./actiontypes";
 
 import * as axios from "../../axioscreation";
 
+export const pageloading = val => {
+  return {
+    type: actiontypes.loading,
+    value: val
+  };
+};
+
 export const SingleHomeLoad = (movieListData, searchquery) => {
   return {
     type: actiontypes.singleHomeLoad,
@@ -36,7 +43,8 @@ export const onSingleLoad = (searchdata = null) => {
     return dispatch => {
       axios.Movielink.get(query)
         .then(res => dispatch(SingleHomeLoad(res.data, "/?" + allquery.query)))
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
+        .then(() => dispatch(pageloading(false)));
     };
   }
   return dispatch => {

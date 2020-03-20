@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 
 import Star from "./starcomponent";
+import StaticStar from "./staticstar";
 
 import { connect } from "react-redux";
 import * as actioncreators from "../../../store/actions/actioncreators";
@@ -70,7 +71,9 @@ class MovieDetail extends Component {
                   <p className="key">Rating</p>
                 </div>
                 <div className="col m6 l8">
-                  <p className="value">{this.props.pmovie_data.Rating}</p>
+                  <p className="value">
+                    <StaticStar rating={this.props.pmovie_data.Rating} />
+                  </p>
                 </div>
               </div>
               <div className="row">
