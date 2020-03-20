@@ -2,6 +2,50 @@ import * as actiontypes from "./actiontypes";
 
 import * as axios from "../../axioscreation";
 
+export const SingleHomeLoad = movieListData => {
+  return {
+    type: actiontypes.singleHomeLoad,
+    value: movieListData
+  };
+};
+
+export const onSingleLoad = (pagelink = null, searchdata = null) => {
+  if (searchdata) {
+    console.log("search");
+    if (searchdata.search_type === "mainsearch") {
+      return dispatch => {
+        axios.Movielink.get("?ms=" + searchdata.query)
+          .then(res => {
+            dispatch(SingleHomeLoad(res.data));
+          })
+          .catch(err => console.log(err));
+      };
+    } else if (searchdata.search_type === "search") {
+      return dispatch => {
+        axios.Movielink.get(
+          "?title=" +
+            searchdata.query.title +
+            "&year=" +
+            searchdata.query.year +
+            "&rating=" +
+            searchdata.query.rating +
+            "&genre=" +
+            searchdata.query.genre
+        )
+          .then(res => dispatch(SingleHomeLoad(res.data)))
+          .catch(err => console.log(err));
+      };
+    }
+  }
+  return dispatch => {
+    console.log("no search");
+    axios.Movielink.get()
+      .then(res => dispatch(SingleHomeLoad(res.data)))
+      .catch(err => console.log(err));
+  };
+};
+
+/*
 export const HomeLoad = movielistdata => {
   return {
     type: actiontypes.onHomeLoad,
@@ -59,7 +103,7 @@ export const doSearch = search_data => {
       .catch(err => console.log(err));
   };
 };
-
+*/
 export const Detail = movie_data => {
   return {
     type: actiontypes.goDetail,

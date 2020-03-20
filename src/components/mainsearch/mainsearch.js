@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 
-import { connect } from "react-redux";
-
 import { withRouter } from "react-router-dom";
-
-import * as actioncreators from "../../store/actions/actioncreators";
 
 class MainSearch extends Component {
   state = {
@@ -18,8 +14,11 @@ class MainSearch extends Component {
 
   handle_enter = e => {
     if (e.key === "Enter") {
-      this.props.performMainsearch(this.state.mainsearch);
-      this.props.history.push("/");
+      if (this.state.mainsearch.length > 1) {
+        this.props.history.push("/?ms=" + this.state.mainsearch);
+      } else {
+        this.props.history.push("/");
+      }
     }
   };
 
@@ -43,18 +42,4 @@ class MainSearch extends Component {
   }
 }
 
-const mapstatetoprops = state => {
-  return {
-    p_mainsearch: state.mainsearch
-  };
-};
-
-const mapdispatchtoprops = dispatch => {
-  return {
-    performMainsearch: val => dispatch(actioncreators.doMainsearch(val))
-  };
-};
-
-export default withRouter(
-  connect(mapstatetoprops, mapdispatchtoprops)(MainSearch)
-);
+export default withRouter(MainSearch);

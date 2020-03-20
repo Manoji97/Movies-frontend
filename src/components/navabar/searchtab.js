@@ -6,7 +6,6 @@ import * as Elements from "../elements";
 import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
-import * as actioncreators from "../../store/actions/actioncreators";
 
 class SearchTab extends Component {
   state = {
@@ -68,6 +67,21 @@ class SearchTab extends Component {
     }
   };
 
+  search_handler = e => {
+    e.preventDefault();
+    let q_string =
+      this.state.search.title !== "" ? "title=" + this.state.search.title : "";
+    q_string +=
+      this.state.search.genre !== "" ? "&genre=" + this.state.search.genre : "";
+    q_string +=
+      this.state.search.year !== "" ? "&year=" + this.state.search.year : "";
+    q_string +=
+      this.state.search.rating !== ""
+        ? "&rating=" + this.state.search.rating
+        : "";
+    this.props.history.push("/?" + q_string);
+  };
+
   render() {
     return (
       <div>
@@ -106,9 +120,8 @@ class SearchTab extends Component {
           <a
             id="search-btn"
             className="waves-effect waves-light btn"
-            onClick={() => {
-              this.props.performsearch(this.state.search);
-              this.props.history.push("/");
+            onClick={e => {
+              this.search_handler(e);
             }}
           >
             <i className="material-icons right">search</i>Search
@@ -119,18 +132,4 @@ class SearchTab extends Component {
   }
 }
 
-const mapstatetoprops = state => {
-  return {
-    search_data: state.search
-  };
-};
-
-const mapdispatchtoprops = dispatch => {
-  return {
-    performsearch: search_data => dispatch(actioncreators.doSearch(search_data))
-  };
-};
-
-export default withRouter(
-  connect(mapstatetoprops, mapdispatchtoprops)(SearchTab)
-);
+export default withRouter(SearchTab);

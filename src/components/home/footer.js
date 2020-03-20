@@ -10,7 +10,11 @@ const Footer = props => {
   ) {
     let classes = count === props.presentpage ? "active" : "waves-effect";
     Pagination_list.push(
-      <li className={classes} key={count} onClick={() => props.onclick(count)}>
+      <li
+        className={classes}
+        key={count}
+        onClick={e => props.onclick(e, count)}
+      >
         <a href="#" className="white-text">
           {count}
         </a>
@@ -38,7 +42,7 @@ const Footer = props => {
       <ul className="pagination">
         <li
           className={disableclassfun(props.links.previous, "li")}
-          onClick={() => props.onclick(num - 1)}
+          onClick={e => props.onclick(e, num - 1)}
         >
           <a href="#!">
             <i className={disableclassfun(props.links.previous, "i")}>
@@ -49,7 +53,7 @@ const Footer = props => {
         {Pagination_list}
         <li
           className={disableclassfun(props.links.next, "li")}
-          onClick={() => props.onclick(num + 1)}
+          onClick={e => props.onclick(e, num + 1)}
         >
           <a href="#!">
             <i className={disableclassfun(props.links.next, "i")}>

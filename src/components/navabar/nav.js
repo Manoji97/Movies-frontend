@@ -86,7 +86,7 @@ const mapstatetoprops = state => {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    performonHomeLoad: () => dispatch(actioncreators.onHomeLoad())
+    performonHomeLoad: () => dispatch(actioncreators.onSingleLoad())
   };
 };
 

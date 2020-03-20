@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
 const bigcard = {
   card_height: "300px",
   card_width: "220px",
@@ -125,17 +127,19 @@ export const MiniMovieCard = props => {
 export const MovieCard = props => {
   return (
     <Card>
-      <Image>
-        <Image_img src={props.image_link} alt="" />
-        <Wrap>
-          <Title>
-            <Span>{props.movie_name}</Span>
-          </Title>
-          <Rating>
-            <Span>{props.movie_rating}</Span>
-          </Rating>
-        </Wrap>
-      </Image>
+      <Link to={props.detail_link}>
+        <Image>
+          <Image_img src={props.image_link} alt="" />
+          <Wrap>
+            <Title>
+              <Span>{props.movie_name}</Span>
+            </Title>
+            <Rating>
+              <Span>{props.movie_rating}</Span>
+            </Rating>
+          </Wrap>
+        </Image>
+      </Link>
     </Card>
   );
 };

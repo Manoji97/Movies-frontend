@@ -31,7 +31,7 @@ class Main extends Component {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    performonHomeLoad: () => dispatch(actioncreators.onHomeLoad())
+    performonHomeLoad: () => dispatch(actioncreators.onSingleLoad())
   };
 };
 

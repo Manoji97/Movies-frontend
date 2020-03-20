@@ -17,30 +17,20 @@ const initialstate = {
 
 const reducer = (state = initialstate, action) => {
   switch (action.type) {
-    case actiontypes.onHomeLoad:
+    case actiontypes.singleHomeLoad:
       state = {
         ...state,
         datalist: action.value
       };
       break;
-    case actiontypes.doMainsearch:
-      state = {
-        ...state,
-        datalist: action.value
-      };
-      break;
-    case actiontypes.doSearch:
-      state = {
-        ...state,
-        datalist: action.value
-      };
-      break;
+
     case actiontypes.goDetail:
       state = {
         ...state,
         moviedata: action.value
       };
       break;
+
     case actiontypes.doLogin:
       state = {
         ...state,
@@ -52,6 +42,7 @@ const reducer = (state = initialstate, action) => {
         }
       };
       break;
+
     case actiontypes.doLogout:
       state = {
         ...state,

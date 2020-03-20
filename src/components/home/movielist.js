@@ -4,20 +4,63 @@ import "materialize-css/dist/css/materialize.css";
 import * as cards from "../moviecards";
 import Footer from "./footer";
 
-import { Link } from "react-router-dom";
-
 import { connect } from "react-redux";
 import * as actioncreators from "../../store/actions/actioncreators";
+
+import queryString from "query-string";
 
 class MovieList extends Component {
   state = {
     pagenumber: 1
   };
 
-  handle_request = num => {
-    if ((num !== this.state.pagenumber) & (num >= 1)) {
-      this.setState({ pagenumber: num });
-      this.props.performtopage(num);
+  componentDidMount() {
+    if (this.props.location.search) {
+      let searchParams = queryString.parse(this.props.location.search);
+      this.props.performLoad(this.get_searchparam(searchParams));
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.search !== this.props.location.search) {
+      let searchParams = queryString.parse(this.props.location.search);
+      this.props.performLoad(this.get_searchparam(searchParams));
+    }
+  }
+
+  get_searchparam = params => {
+    if (Object.keys(params).length > 0) {
+      if (params.ms) {
+        return {
+          search_type: "mainsearch",
+          query: params.ms
+        };
+      }
+      let search_params = {
+        title: params.title ? params.title : "",
+        rating: params.rating ? params.rating : "",
+        year: params.year ? params.year : "",
+        genre: params.genre ? params.genre : ""
+      };
+      return {
+        search_type: "search",
+        query: search_params
+      };
+    }
+    return null;
+  };
+
+  handle_request = (e, num) => {
+    e.preventDefault();
+    if (num >= 1) {
+      if (num > this.state.pagenumber) {
+        this.setState({ pagenumber: this.state.pagenumber + 1 });
+        this.props.performtopage(this.props.pmoviedata_list.next);
+      }
+      if (num > this.state.pagenumber) {
+        this.setState({ pagenumber: this.state.pagenumber - 1 });
+        this.props.performtopage(this.props.pmoviedata_list.previous);
+      }
     }
   };
 
@@ -26,13 +69,13 @@ class MovieList extends Component {
     let Movies = Moviedata_list.results.map(item => {
       return (
         <div className="col s12 m6 l4 xl3">
-          <Link to={"/" + item.id} key={item.id}>
-            <cards.MovieCard
-              image_link={item.Image_link}
-              movie_name={item.Title}
-              movie_rating={item.Rating}
-            />
-          </Link>
+          <cards.MovieCard
+            key={item.id}
+            detail_link={"/" + item.id}
+            image_link={item.Image_link}
+            movie_name={item.Title}
+            movie_rating={item.Rating}
+          />
         </div>
       );
     });
@@ -61,7 +104,8 @@ const mapstatetoprops = state => {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    performtopage: page_num => dispatch(actioncreators.onHomeLoad(page_num))
+    performLoad: searchParams =>
+      dispatch(actioncreators.onSingleLoad(null, searchParams))
   };
 };
 
