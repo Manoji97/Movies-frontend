@@ -63,6 +63,10 @@ body {
   color: white;
 }
 
+.signup {
+  margin-top: 15px;
+}
+
 .movie-detail {
   background: rgba(0, 0, 0, 0.6);
 }

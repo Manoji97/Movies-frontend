@@ -78,13 +78,16 @@ class UserTab extends Component {
             Login
           </a>
         </div>
-        <div className="col s12 center-align">
+        <div className="col s12 center-align signup">
           <a
             id="search-btn"
             className="waves-effect waves-light btn"
-            onClick={() => this.props.performLogin(this.state.user)}
+            onClick={e => {
+              e.preventDefault();
+              this.props.openModal();
+            }}
           >
-            SignUp
+            SignUP
           </a>
         </div>
       </div>
@@ -108,7 +111,8 @@ const mapstatetoprops = state => {
 const mapdispatchtoprops = dispatch => {
   return {
     performLogin: user_info => dispatch(actioncreators.doLogin(user_info)),
-    performLogout: () => dispatch(actioncreators.doLogout())
+    performLogout: () => dispatch(actioncreators.doLogout()),
+    openModal: () => dispatch(actioncreators.performOpenModal())
   };
 };
 

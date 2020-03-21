@@ -4,6 +4,7 @@ import Nav from "./navabar/nav";
 import Mainsearch from "./mainsearch/mainsearch";
 import MovieList from "./home/movielist";
 import Detail from "./detail/detail";
+import SignUP from "./navabar/signupmodal";
 
 import { Route, Switch } from "react-router-dom";
 
@@ -19,6 +20,7 @@ class Main extends Component {
     return (
       <React.Fragment>
         <Nav />
+        <SignUP isOpen={this.props.p_ismodalopen} />
         <Mainsearch />
         <Switch>
           <Route path="/" exact component={MovieList} />
@@ -28,6 +30,12 @@ class Main extends Component {
     );
   }
 }
+
+const mapstatetoprops = state => {
+  return {
+    p_ismodalopen: state.isModalOpen
+  };
+};
 
 const mapdispatchtoprops = dispatch => {
   return {

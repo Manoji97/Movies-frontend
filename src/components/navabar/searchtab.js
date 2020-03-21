@@ -48,7 +48,6 @@ class SearchTab extends Component {
     return newgenrelist;
   };
 
-  /*
   genreslist = [
     {
       value: "Action",
@@ -62,7 +61,7 @@ class SearchTab extends Component {
       value: "Horror",
       inner: "Horror"
     }
-  ];*/
+  ];
 
   yearlist = this.create_optionslist(2000, new Date().getFullYear());
   ratinglist = this.create_optionslist(4, 9);
@@ -124,7 +123,7 @@ class SearchTab extends Component {
           <Elements.DropdownField
             id="genre"
             label="Genres Select"
-            options={this.state.genreslist}
+            options={this.genreslist}
             select={this.select_handler}
           />
         </div>

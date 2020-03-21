@@ -175,3 +175,9 @@ export const getGenreList = () => {
       .catch(err => console.log(err));
   };
 };
+
+export const performOpenModal = () => {
+  return {
+    type: actiontypes.OpenModal
+  };
+};

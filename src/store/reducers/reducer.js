@@ -5,6 +5,7 @@ const initialstate = {
   pagenumber: 1,
   isLoading: false,
   genrelist: [],
+  isModalOpen: false,
   user: {
     username: "",
     isLoggedin: false,
@@ -46,6 +47,12 @@ const reducer = (state = initialstate, action) => {
       state = {
         ...state,
         genrelist: action.value
+      };
+      break;
+    case actiontypes.OpenModal:
+      state = {
+        ...state,
+        isModalOpen: true
       };
       break;
 
