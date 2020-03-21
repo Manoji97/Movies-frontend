@@ -21,6 +21,7 @@ export const InputFiled = props => {
   );
 };
 
+/*
 export const ButtonField = props => {
   return (
     <div className="col s12">
@@ -28,6 +29,7 @@ export const ButtonField = props => {
     </div>
   );
 };
+*/
 
 export class DropdownField extends Component {
   componentDidMount() {
@@ -35,13 +37,20 @@ export class DropdownField extends Component {
   }
 
   render() {
-    let optlist = this.props.options.map(item => {
-      return (
+    let optlist = [
+      <option key={0} value="" defaultValue>
+        Choose your option
+      </option>
+    ];
+
+    this.props.options.map(item => {
+      optlist.push(
         <option key={item.value} value={item.value}>
           {item.inner}
         </option>
       );
     });
+
     return (
       <div className="input-field col s12">
         <select
@@ -51,9 +60,6 @@ export class DropdownField extends Component {
             this.select = select;
           }}
         >
-          <option value="" disabled defaultValue>
-            Choose your option
-          </option>
           {optlist}
         </select>
         <label>{this.props.label}</label>

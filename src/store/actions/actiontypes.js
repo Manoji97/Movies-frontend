@@ -5,3 +5,4 @@ export const goDetail = "goDetial";
 export const singleHomeLoad = "singleHomeLoad";
 export const pagenumone = "pagenumone";
 export const loading = "loading";
+export const getGenreList = "getGenreList";

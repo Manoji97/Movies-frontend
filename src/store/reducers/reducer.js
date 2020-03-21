@@ -4,6 +4,7 @@ const initialstate = {
   searchstring: "/?",
   pagenumber: 1,
   isLoading: false,
+  genrelist: [],
   user: {
     username: "",
     isLoggedin: false,
@@ -24,13 +25,15 @@ const reducer = (state = initialstate, action) => {
       state = {
         ...state,
         datalist: action.value,
-        searchstring: action.searchstring
+        searchstring: action.searchstring,
+        isLoading: false
       };
       break;
     case actiontypes.pagenumone:
       state = {
         ...state,
-        pagenumber: action.value
+        pagenumber: action.value,
+        isLoading: false
       };
       break;
     case actiontypes.loading:
@@ -39,11 +42,18 @@ const reducer = (state = initialstate, action) => {
         isLoading: action.value
       };
       break;
+    case actiontypes.getGenreList:
+      state = {
+        ...state,
+        genrelist: action.value
+      };
+      break;
 
     case actiontypes.goDetail:
       state = {
         ...state,
-        moviedata: action.value
+        moviedata: action.value,
+        isLoading: false
       };
       break;
 
@@ -69,6 +79,9 @@ const reducer = (state = initialstate, action) => {
           isLoggedin: false
         }
       };
+      break;
+
+    default:
       break;
   }
   return state;

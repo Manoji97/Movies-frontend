@@ -22,6 +22,14 @@ body {
   }
 }
 
+.dropdown-content li > a,
+.dropdown-content li > span {
+  padding: 5px !important;
+}
+.dropdown-content li {
+  min-height: auto !important;
+}
+
 #userimage {
   margin: 50px auto 20px auto;
   border-radius: 50%;

@@ -9,6 +9,8 @@ import * as actioncreators from "../../store/actions/actioncreators";
 
 import queryString from "query-string";
 
+import Spinner from "../spinner";
+
 class MovieList extends Component {
   state = {
     pagenumber: this.props.p_statepage
@@ -72,6 +74,7 @@ class MovieList extends Component {
         this.props.p_searchurl + "&page=" + this.state.pagenumber
       );
       this.props.p_pagenum(num);
+      this.props.p_startloading();
     });
   };
 
@@ -79,9 +82,8 @@ class MovieList extends Component {
     let Moviedata_list = this.props.pmoviedata_list;
     let Movies = Moviedata_list.results.map(item => {
       return (
-        <div className="col s12 m6 l4 xl3">
+        <div className="col s12 m6 l4 xl3" key={item.id}>
           <cards.MovieCard
-            key={item.id}
             detail_link={"/" + item.id}
             image_link={item.Image_link}
             movie_name={item.Title}
@@ -90,14 +92,21 @@ class MovieList extends Component {
         </div>
       );
     });
-    return (
-      <section className="main">
+
+    let MainList = (
+      <React.Fragment>
         <div className="row">{Movies}</div>
         <Footer
           onclick={this.handle_request}
           count={Moviedata_list.count}
           presentpage={this.props.p_statepage}
         />
+      </React.Fragment>
+    );
+
+    return (
+      <section className="main">
+        {this.props.p_isloading ? <Spinner /> : MainList}
       </section>
     );
   }
@@ -107,7 +116,8 @@ const mapstatetoprops = state => {
   return {
     pmoviedata_list: state.datalist,
     p_searchurl: state.searchstring,
-    p_statepage: state.pagenumber
+    p_statepage: state.pagenumber,
+    p_isloading: state.isLoading
   };
 };
 
@@ -115,7 +125,8 @@ const mapdispatchtoprops = dispatch => {
   return {
     performLoad: searchParams =>
       dispatch(actioncreators.onSingleLoad(searchParams)),
-    p_pagenum: num => dispatch(actioncreators.Pagenumone(num))
+    p_pagenum: num => dispatch(actioncreators.Pagenumone(num)),
+    p_startloading: () => dispatch(actioncreators.pageloading())
   };
 };
 

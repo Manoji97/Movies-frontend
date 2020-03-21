@@ -2,10 +2,10 @@ import * as actiontypes from "./actiontypes";
 
 import * as axios from "../../axioscreation";
 
-export const pageloading = val => {
+export const pageloading = () => {
   return {
     type: actiontypes.loading,
-    value: val
+    value: true
   };
 };
 
@@ -43,8 +43,7 @@ export const onSingleLoad = (searchdata = null) => {
     return dispatch => {
       axios.Movielink.get(query)
         .then(res => dispatch(SingleHomeLoad(res.data, "/?" + allquery.query)))
-        .catch(err => console.log(err))
-        .then(() => dispatch(pageloading(false)));
+        .catch(err => console.log(err));
     };
   }
   return dispatch => {
@@ -159,5 +158,20 @@ export const doLogin = user_info => {
 export const doLogout = () => {
   return {
     type: actiontypes.doLogout
+  };
+};
+
+const GenreList = genrelist => {
+  return {
+    type: actiontypes.getGenreList,
+    value: genrelist
+  };
+};
+
+export const getGenreList = () => {
+  return dispatch => {
+    axios.GneresLink.get()
+      .then(res => dispatch(GenreList(res.data.results)))
+      .catch(err => console.log(err));
   };
 };

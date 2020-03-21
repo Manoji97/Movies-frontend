@@ -15,16 +15,40 @@ class SearchTab extends Component {
       genre: "",
       year: "",
       rating: ""
-    }
+    },
+    genreslist: []
   };
+
+  componentDidUpdate(prevprops, prevstate) {
+    if (prevprops.p_genrelist !== this.props.p_genrelist) {
+      this.setState({
+        genreslist: this.create_genrelist(this.props.p_genrelist)
+      });
+    }
+  }
 
   create_optionslist = (start, end) => {
     let optionlist = [];
-    for (let i = start; i <= end; i++) {
+    for (let i = end; i >= start; i--) {
       optionlist.push({ value: i, inner: i });
     }
     return optionlist;
   };
+
+  create_genrelist = genrelist => {
+    let newgenrelist = [];
+    if (genrelist.length > 0) {
+      genrelist.map(item => {
+        newgenrelist.push({
+          value: item.genre,
+          inner: item.genre
+        });
+      });
+    }
+    return newgenrelist;
+  };
+
+  /*
   genreslist = [
     {
       value: "Action",
@@ -38,7 +62,8 @@ class SearchTab extends Component {
       value: "Horror",
       inner: "Horror"
     }
-  ];
+  ];*/
+
   yearlist = this.create_optionslist(2000, new Date().getFullYear());
   ratinglist = this.create_optionslist(4, 9);
 
@@ -82,6 +107,7 @@ class SearchTab extends Component {
         : "";
     this.props.history.push("/?" + q_string);
     this.props.p_pagenum();
+    this.props.p_startloading();
   };
 
   render() {
@@ -98,7 +124,7 @@ class SearchTab extends Component {
           <Elements.DropdownField
             id="genre"
             label="Genres Select"
-            options={this.genreslist}
+            options={this.state.genreslist}
             select={this.select_handler}
           />
         </div>
@@ -134,10 +160,19 @@ class SearchTab extends Component {
   }
 }
 
-const mapdispatchtoprops = dispatch => {
+const mapstatetoprops = state => {
   return {
-    p_pagenum: () => dispatch(actioncreators.Pagenumone())
+    p_genrelist: state.genrelist
   };
 };
 
-export default withRouter(connect(null, mapdispatchtoprops)(SearchTab));
+const mapdispatchtoprops = dispatch => {
+  return {
+    p_pagenum: () => dispatch(actioncreators.Pagenumone()),
+    p_startloading: () => dispatch(actioncreators.pageloading())
+  };
+};
+
+export default withRouter(
+  connect(mapstatetoprops, mapdispatchtoprops)(SearchTab)
+);
