@@ -9,9 +9,6 @@ import * as actioncreators from "../../store/actions/actioncreators";
 import Spinner from "../spinner";
 
 class Detail extends Component {
-  componentDidMount() {
-    this.props.p_startloading();
-  }
   render() {
     let Detail = (
       <React.Fragment>
@@ -29,10 +26,4 @@ const mapstatetoprops = state => {
   };
 };
 
-const mapdispatchtoprops = dispatch => {
-  return {
-    p_startloading: () => dispatch(actioncreators.pageloading())
-  };
-};
-
-export default connect(mapstatetoprops, mapdispatchtoprops)(Detail);
+export default connect(mapstatetoprops)(Detail);

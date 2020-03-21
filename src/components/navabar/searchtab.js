@@ -106,7 +106,6 @@ class SearchTab extends Component {
         : "";
     this.props.history.push("/?" + q_string);
     this.props.p_pagenum();
-    this.props.p_startloading();
   };
 
   render() {
@@ -167,8 +166,7 @@ const mapstatetoprops = state => {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    p_pagenum: () => dispatch(actioncreators.Pagenumone()),
-    p_startloading: () => dispatch(actioncreators.pageloading())
+    p_pagenum: () => dispatch(actioncreators.Pagenumone())
   };
 };
 

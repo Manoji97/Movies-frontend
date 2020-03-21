@@ -52,7 +52,7 @@ const reducer = (state = initialstate, action) => {
     case actiontypes.OpenModal:
       state = {
         ...state,
-        isModalOpen: true
+        isModalOpen: action.value
       };
       break;
 

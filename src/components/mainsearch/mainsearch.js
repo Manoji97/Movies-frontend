@@ -22,7 +22,6 @@ class MainSearch extends Component {
         this.props.history.push("/");
       }
       this.props.p_pagenum();
-      this.props.p_startloading();
     }
   };
 
@@ -48,8 +47,7 @@ class MainSearch extends Component {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    p_pagenum: () => dispatch(actioncreators.Pagenumone()),
-    p_startloading: () => dispatch(actioncreators.pageloading())
+    p_pagenum: () => dispatch(actioncreators.Pagenumone())
   };
 };
 

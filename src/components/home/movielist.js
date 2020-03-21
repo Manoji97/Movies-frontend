@@ -74,7 +74,6 @@ class MovieList extends Component {
         this.props.p_searchurl + "&page=" + this.state.pagenumber
       );
       this.props.p_pagenum(num);
-      this.props.p_startloading();
     });
   };
 
@@ -125,8 +124,7 @@ const mapdispatchtoprops = dispatch => {
   return {
     performLoad: searchParams =>
       dispatch(actioncreators.onSingleLoad(searchParams)),
-    p_pagenum: num => dispatch(actioncreators.Pagenumone(num)),
-    p_startloading: () => dispatch(actioncreators.pageloading())
+    p_pagenum: num => dispatch(actioncreators.Pagenumone(num))
   };
 };
 

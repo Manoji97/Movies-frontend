@@ -84,7 +84,7 @@ class UserTab extends Component {
             className="waves-effect waves-light btn"
             onClick={e => {
               e.preventDefault();
-              this.props.openModal();
+              this.props.openModal(true);
             }}
           >
             SignUP
@@ -112,7 +112,7 @@ const mapdispatchtoprops = dispatch => {
   return {
     performLogin: user_info => dispatch(actioncreators.doLogin(user_info)),
     performLogout: () => dispatch(actioncreators.doLogout()),
-    openModal: () => dispatch(actioncreators.performOpenModal())
+    openModal: val => dispatch(actioncreators.performOpenModal(val))
   };
 };
 

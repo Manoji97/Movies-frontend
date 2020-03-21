@@ -2,10 +2,10 @@ import * as actiontypes from "./actiontypes";
 
 import * as axios from "../../axioscreation";
 
-export const pageloading = () => {
+const pageloading = (val = true) => {
   return {
     type: actiontypes.loading,
-    value: true
+    value: val
   };
 };
 
@@ -41,15 +41,20 @@ export const onSingleLoad = (searchdata = null) => {
     query += allquery.querywithpage;
 
     return dispatch => {
+      dispatch(pageloading(true));
       axios.Movielink.get(query)
-        .then(res => dispatch(SingleHomeLoad(res.data, "/?" + allquery.query)))
+        .then(res => {
+          dispatch(SingleHomeLoad(res.data, "/?" + allquery.query));
+        })
         .catch(err => console.log(err));
     };
   }
   return dispatch => {
-    console.log("no search");
+    dispatch(pageloading(true));
     axios.Movielink.get()
-      .then(res => dispatch(SingleHomeLoad(res.data, "/?")))
+      .then(res => {
+        dispatch(SingleHomeLoad(res.data, "/?"));
+      })
       .catch(err => console.log(err));
   };
 };
@@ -129,6 +134,7 @@ export const Detail = movie_data => {
 
 export const goDetail = movie_id => {
   return dispatch => {
+    dispatch(pageloading(true));
     axios.Movielink.get("/" + movie_id)
       .then(res => {
         dispatch(Detail(res.data));
@@ -176,8 +182,9 @@ export const getGenreList = () => {
   };
 };
 
-export const performOpenModal = () => {
+export const performOpenModal = val => {
   return {
-    type: actiontypes.OpenModal
+    type: actiontypes.OpenModal,
+    value: val
   };
 };
