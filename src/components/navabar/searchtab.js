@@ -160,7 +160,7 @@ class SearchTab extends Component {
 
 const mapstatetoprops = state => {
   return {
-    p_genrelist: state.genrelist
+    p_genrelist: state.movie.genrelist
   };
 };
 

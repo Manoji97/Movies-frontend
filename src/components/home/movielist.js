@@ -17,7 +17,7 @@ class MovieList extends Component {
   };
 
   componentDidMount() {
-    if (this.props.location.search) {
+    if (this.props.location.search | (this.props.location.pathname === "/")) {
       let searchParams = queryString.parse(this.props.location.search);
       this.props.performLoad(this.get_searchparam(searchParams));
     }
@@ -113,10 +113,10 @@ class MovieList extends Component {
 
 const mapstatetoprops = state => {
   return {
-    pmoviedata_list: state.datalist,
-    p_searchurl: state.searchstring,
-    p_statepage: state.pagenumber,
-    p_isloading: state.isLoading
+    pmoviedata_list: state.movie.datalist,
+    p_searchurl: state.movie.searchstring,
+    p_statepage: state.movie.pagenumber,
+    p_isloading: state.movie.isLoading
   };
 };
 

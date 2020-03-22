@@ -20,7 +20,7 @@ class Main extends Component {
     return (
       <React.Fragment>
         <Nav />
-        <SignUP isOpen={this.props.p_ismodalopen} />
+        <SignUP />
         <Mainsearch />
         <Switch>
           <Route path="/" exact component={MovieList} />
@@ -31,16 +31,10 @@ class Main extends Component {
   }
 }
 
-const mapstatetoprops = state => {
-  return {
-    p_ismodalopen: state.isModalOpen
-  };
-};
-
 const mapdispatchtoprops = dispatch => {
   return {
     performonHomeLoad: () => dispatch(actioncreators.onSingleLoad())
   };
 };
 
-export default connect(mapstatetoprops, mapdispatchtoprops)(Main);
+export default connect(null, mapdispatchtoprops)(Main);

@@ -4,29 +4,26 @@ import M from "materialize-css";
 
 import * as Elements from "../elements";
 
+import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import * as actioncreators from "../../store/actions/actioncreators";
-
-const Modaloverlay = props => {
-  return (
-    <div className="modal-overlay" onClick={() => props.onoverlay()}></div>
-  );
-};
 
 class SignUP extends Component {
   state = {
     open: false,
     username: "",
     password: "",
-    confirmpassword: ""
+    confirmpassword: "",
+    message: ""
   };
   signupmodal = null;
   componentDidMount() {
-    this.signupmodal = M.Modal.init(this.Modal, {});
+    this.signupmodal = M.Modal.init(this.Modal, { dismissible: false });
   }
   componentDidUpdate() {
     if (this.props.isOpen) this.signupmodal.open();
-    else this.signupmodal.close();
+    else if (this.props.isOpen == false) this.signupmodal.close();
   }
 
   handler = e => {
@@ -44,75 +41,81 @@ class SignUP extends Component {
     }
   };
 
-  onRegister = () => {
-    console.log(this.state);
+  onRegister = e => {
+    if (this.state.password !== this.state.confirmpassword) {
+      this.setState({ message: "Your Passwords dont match" });
+    } else {
+      console.log("post data");
+    }
   };
   onclose = e => {
-    e.preventDefault();
     this.props.openModal(false);
   };
 
   render() {
-    console.log(this.props.isOpen);
     return (
-      <React.Fragment>
-        <div
-          ref={Modal => {
-            this.Modal = Modal;
-          }}
-          className="modal"
-        >
-          <div className="modal-content">
+      <div
+        ref={Modal => {
+          this.Modal = Modal;
+        }}
+        className="modal"
+      >
+        <div className="modal-content">
+          <h5>SIGN UP</h5>
+          <div className="col s12">
             <div className="col s12">
-              <div className="col s12">
-                <Elements.InputFiled
-                  id="newusername"
-                  placeholder="Enter User Name"
-                  label="User Name"
-                  onchange={this.handler}
-                />
-              </div>
-              <div className="col s12">
-                <Elements.InputFiled
-                  id="signuppassword"
-                  placeholder="Enter Password"
-                  label="Password"
-                  type="password"
-                  onchange={this.handler}
-                />
-              </div>
-              <div className="col s12">
-                <Elements.InputFiled
-                  id="confirmpassword"
-                  placeholder="Renter Password"
-                  label="Confirm Password"
-                  type="password"
-                  onchange={this.handler}
-                />
-              </div>
+              <Elements.InputFiled
+                id="newusername"
+                placeholder="Enter User Name"
+                label="User Name"
+                onchange={this.handler}
+              />
             </div>
-          </div>
-          <div className="modal-footer">
-            <a
-              href="#!"
-              className="modal-close waves-effect waves-blue btn blue"
-              onClick={this.onRegister}
-            >
-              Register
-            </a>
-            <a
-              href="#!"
-              className="modal-close waves-effect waves-red btn red"
-              onClick={this.onclose}
-            >
-              Close
-            </a>
+            <div className="col s12">
+              <Elements.InputFiled
+                id="signuppassword"
+                placeholder="Enter Password"
+                label="Password"
+                type="password"
+                onchange={this.handler}
+              />
+            </div>
+            <div className="col s12">
+              <Elements.InputFiled
+                id="confirmpassword"
+                placeholder="Renter Password"
+                label="Confirm Password"
+                type="password"
+                onchange={this.handler}
+              />
+            </div>
+            <p className="blue-text">{this.state.message}</p>
           </div>
         </div>
-      </React.Fragment>
+        <div className="modal-footer">
+          <Link
+            className="waves-effect waves-blue btn blue register_btn"
+            onClick={e => this.onRegister(e)}
+          >
+            Register
+          </Link>
+          <Link
+            className="modal-close waves-effect waves-red btn red"
+            onClick={e => this.onclose(e)}
+          >
+            Close
+          </Link>
+        </div>
+      </div>
     );
   }
 }
+
+const mapstatetoprops = state => {
+  return {
+    isOpen: state.user_info.isModalOpen
+  };
+};
 
 const mapdispatchtoprops = dispatch => {
   return {
@@ -120,4 +123,4 @@ const mapdispatchtoprops = dispatch => {
   };
 };
 
-export default connect(null, mapdispatchtoprops)(SignUP);
+export default connect(mapstatetoprops, mapdispatchtoprops)(SignUP);

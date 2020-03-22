@@ -4,12 +4,14 @@ import Main from "./components/Main";
 
 import { BrowserRouter } from "react-router-dom";
 
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
 
 import ScrollToTop from "./components/scrollup";
 
 import reducer from "./store/reducers/reducer";
+import Moviereducer from "./store/reducers/moviereducer";
+import Userreducer from "./store/reducers/userreducer";
 import thunk from "redux-thunk";
 
 const composeEnhancers =
@@ -19,7 +21,12 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-const store = createStore(reducer, enhancer);
+const rootreducer = combineReducers({
+  movie: Moviereducer,
+  user_info: Userreducer
+});
+
+const store = createStore(rootreducer, enhancer);
 
 export default function App() {
   return (

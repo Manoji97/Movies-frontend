@@ -9,6 +9,9 @@ import * as actioncreators from "../../store/actions/actioncreators";
 import Spinner from "../spinner";
 
 class Detail extends Component {
+  componentDidMount() {
+    this.props.pstartloading();
+  }
   render() {
     let Detail = (
       <React.Fragment>
@@ -22,8 +25,14 @@ class Detail extends Component {
 
 const mapstatetoprops = state => {
   return {
-    p_isloading: state.isLoading
+    p_isloading: state.movie.isLoading
   };
 };
 
-export default connect(mapstatetoprops)(Detail);
+const mapdispatchtoprops = dispatch => {
+  return {
+    pstartloading: () => dispatch(actioncreators.pageloading())
+  };
+};
+
+export default connect(mapstatetoprops, mapdispatchtoprops)(Detail);

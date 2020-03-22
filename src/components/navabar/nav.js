@@ -26,7 +26,6 @@ class Nav extends Component {
   }
 
   clickLogo = () => {
-    this.props.performonHomeLoad();
     this.props.p_pagenum();
   };
 
@@ -82,13 +81,12 @@ class Nav extends Component {
 
 const mapstatetoprops = state => {
   return {
-    pusername: state.user.username
+    pusername: state.user_info.user.username
   };
 };
 
 const mapdispatchtoprops = dispatch => {
   return {
-    performonHomeLoad: () => dispatch(actioncreators.onSingleLoad()),
     p_pagenum: () => dispatch(actioncreators.Pagenumone()),
     p_getGenreList: () => dispatch(actioncreators.getGenreList())
   };

@@ -124,7 +124,7 @@ class MovieDetail extends Component {
 
 const mapstatetoprops = state => {
   return {
-    pmovie_data: state.moviedata
+    pmovie_data: state.movie.moviedata
   };
 };
 

@@ -6,6 +6,8 @@ import * as Elements from "../elements";
 import { connect } from "react-redux";
 import * as actioncreators from "../../store/actions/actioncreators";
 
+import { Link } from "react-router-dom";
+
 class UserTab extends Component {
   state = {
     user: {
@@ -29,6 +31,11 @@ class UserTab extends Component {
     }
   };
 
+  Login = e => {
+    e.preventDefault();
+    this.props.performLogin(this.state);
+  };
+
   render() {
     let user_image = (
       <div className="row">
@@ -40,23 +47,24 @@ class UserTab extends Component {
           src="sample-1.jpg"
         />
         <div className="col s12 center-align">
-          <a
+          <Link
             id="search-btn"
             className="waves-effect waves-light btn"
             onClick={() => this.props.performLogout()}
           >
             Logout
-          </a>
+          </Link>
         </div>
       </div>
     );
     let input_fields = (
-      <div className="col s12">
+      <form className="col s12" onSubmit={e => this.Login(e)}>
         <div className="col s12">
           <Elements.InputFiled
             id="username"
             placeholder="Enter User Name"
             label="User Name"
+            isvalid={true}
             onchange={this.handler}
           />
         </div>
@@ -66,6 +74,7 @@ class UserTab extends Component {
             placeholder="Enter Password"
             label="Password"
             type="password"
+            isvalid={true}
             onchange={this.handler}
           />
         </div>
@@ -73,7 +82,7 @@ class UserTab extends Component {
           <a
             id="search-btn"
             className="waves-effect waves-light btn"
-            onClick={() => this.props.performLogin(this.state.user)}
+            //onClick={() => this.props.performLogin(this.state.user)}
           >
             Login
           </a>
@@ -90,7 +99,7 @@ class UserTab extends Component {
             SignUP
           </a>
         </div>
-      </div>
+      </form>
     );
     return (
       <div id="user" className="row">
@@ -104,7 +113,7 @@ class UserTab extends Component {
 
 const mapstatetoprops = state => {
   return {
-    user_data: state.user
+    user_data: state.user_info.user
   };
 };
 
