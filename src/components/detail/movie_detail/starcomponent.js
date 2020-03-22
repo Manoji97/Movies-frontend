@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 
+import { connect } from "react-redux";
+import * as actioncreators from "../../../store/actions/actioncreators";
+
 class Star extends Component {
   state = {
     edit: false,
@@ -8,6 +11,12 @@ class Star extends Component {
     rating: this.props.rating ? this.props.rating : 0,
     temp_rating: 0
   };
+
+  componentDidUpdate() {
+    if (!this.props.p_isloggedin) {
+      if (this.state.edit) this.setState({ edit: false });
+    }
+  }
   onclick = num => {
     if (this.state.edit) {
       this.setState({ rating: num });
@@ -25,11 +34,25 @@ class Star extends Component {
   };
 
   edithandler = () => {
-    this.setState(pstate => ({ edit: !pstate.edit, rating: pstate.original }));
+    if (this.props.p_isloggedin) {
+      this.setState(pstate => ({
+        edit: !pstate.edit,
+        rating: pstate.original
+      }));
+    } else {
+      console.log("You have to Loggin to add Rating");
+    }
   };
 
   sendrating = () => {
-    this.setState(pstate => ({ original: pstate.rating, edit: false }));
+    this.setState(
+      pstate => ({ original: pstate.rating, edit: false }),
+      () => {
+        this.props.update_userrating(this.props.movieId, this.props.p_token, {
+          newRate: this.state.original
+        });
+      }
+    );
   };
 
   render() {
@@ -74,4 +97,18 @@ class Star extends Component {
   }
 }
 
-export default Star;
+const mapstatetoprops = state => {
+  return {
+    p_isloggedin: state.user_info.user.isLoggedin,
+    p_token: state.user_info.token
+  };
+};
+
+const mapdispatchtoprops = dispatch => {
+  return {
+    update_userrating: (movieId, p_token, newRate) =>
+      dispatch(actioncreators.updateRating(movieId, p_token, newRate))
+  };
+};
+
+export default connect(mapstatetoprops, mapdispatchtoprops)(Star);

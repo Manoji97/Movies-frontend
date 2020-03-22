@@ -68,11 +68,11 @@ class MovieDetail extends Component {
               </div>
               <div className="row">
                 <div className="col m6 l4">
-                  <p className="key">Rating</p>
+                  <p className="key">Imdb Rating</p>
                 </div>
                 <div className="col m6 l8">
                   <p className="value">
-                    <StaticStar rating={this.props.pmovie_data.Rating} />
+                    <StaticStar rating={this.props.pmovie_data.Imdb_rating} />
                   </p>
                 </div>
               </div>
@@ -90,7 +90,7 @@ class MovieDetail extends Component {
                 </div>
                 <div className="col m6 l8">
                   <p className="value">
-                    <Star rating={2} />
+                    <Star rating={2} movieId={this.props.movieId} />
                   </p>
                 </div>
               </div>

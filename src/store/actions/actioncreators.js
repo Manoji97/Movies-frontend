@@ -7,7 +7,8 @@ export {
   onSingleLoad,
   Pagenumone,
   goDetail,
-  getGenreList
+  getGenreList,
+  updateRating
 } from "./movieactioncreators";
 
 export {

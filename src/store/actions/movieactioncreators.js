@@ -97,3 +97,28 @@ export const getGenreList = () => {
       .catch(err => console.log(err));
   };
 };
+
+const UpdateRating = () => {
+  return {
+    type: actiontypes.updateRating
+  };
+};
+
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: "Token "
+};
+
+export const updateRating = (movieId, token, newrate) => {
+  console.log(token);
+  return dispatch => {
+    axios.Movielink.post(`${movieId}/rate_movie/`, newrate, {
+      headers: {
+        ...headers,
+        Authorization: `Token ${token}`
+      }
+    })
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err.response.data));
+  };
+};
