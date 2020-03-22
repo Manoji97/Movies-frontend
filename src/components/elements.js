@@ -10,7 +10,7 @@ export const InputFiled = props => {
         value={props.value}
         id={props.id}
         type={type}
-        className="validate center-align"
+        className={`${props.valid} center-align`}
         placeholder={props.placeholder}
         onChange={e => props.onchange(e)}
       />
@@ -19,6 +19,57 @@ export const InputFiled = props => {
       </label>
     </div>
   );
+};
+
+export const InputField = props => {
+  let isvalid = props.config.valid ? "valid" : "invalid";
+  return (
+    <div className="input-field col s12">
+      <input
+        value={props.config.value}
+        id={props.config.id}
+        type={props.config.type}
+        className={`${isvalid} center-align`}
+        placeholder={props.config.placeholder}
+        onChange={e => props.onchange(e)}
+      />
+      <label className="active" htmlFor="">
+        {props.config.label}
+      </label>
+      <span
+        class="helper-text"
+        data-error={props.config.errormessage}
+        data-success=""
+      ></span>
+    </div>
+  );
+};
+
+export const checkvalidity = (value, rules, password_for_confirm = "") => {
+  let isvalid = true;
+  let errormsg = "";
+  for (let type in rules) {
+    switch (type) {
+      case "required":
+        if (rules[type]) {
+          isvalid &= value.trim() !== "";
+        }
+        errormsg = !isvalid ? "This Field is Requird" : "";
+        break;
+      case "minlength":
+        isvalid &= value.length >= rules[type];
+        errormsg = !isvalid ? `The Minimum length is ${rules[type]}` : "";
+        break;
+      case "confirm":
+        isvalid &= value === password_for_confirm;
+        errormsg = !isvalid ? "Your Passwords do not match" : "";
+        break;
+    }
+  }
+  return {
+    isvalid: isvalid,
+    errormessage: errormsg
+  };
 };
 
 /*

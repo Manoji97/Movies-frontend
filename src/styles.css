@@ -183,4 +183,8 @@ body {
   .recommend_wrapper .mod_row {
     grid-template-columns: 1fr 1fr;
   }
+  .modal {
+    width: 70% !important;
+    padding: 10px;
+  }
 }

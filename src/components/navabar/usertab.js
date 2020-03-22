@@ -10,22 +10,76 @@ import { Link } from "react-router-dom";
 
 class UserTab extends Component {
   state = {
-    user: {
-      username: "",
-      password: ""
-    }
+    username: {
+      id: "username",
+      type: "text",
+      placeholder: "Enter User Name",
+      label: "User Name",
+      value: "",
+      validity_rules: {
+        required: true
+      },
+      valid: true,
+      errormessage: "",
+      eddited: false
+    },
+    password: {
+      id: "password",
+      placeholder: "Enter Password",
+      label: "Password",
+      type: "password",
+      value: "",
+      validity_rules: {
+        required: true
+      },
+      valid: true,
+      errormessage: "",
+      eddited: false
+    },
+    message: ""
   };
 
+  componentDidUpdate(prevprops) {
+    if (
+      (this.props.user_data.errormessage !== "") &
+      (this.props.user_data.errormessage !== prevprops.user_data.errormessage)
+    ) {
+      this.setState({ message: this.props.user_data.errormessage });
+    }
+  }
+
   handler = e => {
+    let validtity;
     switch (e.target.id) {
       case "username":
+        validtity = Elements.checkvalidity(
+          e.target.value,
+          this.state.username.validity_rules
+        );
+
         this.setState({
-          user: { ...this.state.user, username: e.target.value }
+          username: {
+            ...this.state.username,
+            value: e.target.value,
+            valid: validtity.isvalid,
+            errormessage: validtity.errormessage,
+            eddited: true
+          }
         });
         break;
       case "password":
+        validtity = Elements.checkvalidity(
+          e.target.value,
+          this.state.password.validity_rules
+        );
         this.setState({
-          user: { ...this.state.user, password: e.target.value }
+          password: {
+            ...this.state.password,
+            value: e.target.value,
+            valid: validtity.isvalid,
+            errormessage: validtity.errormessage,
+            eddited: true
+          }
         });
         break;
     }
@@ -33,7 +87,20 @@ class UserTab extends Component {
 
   Login = e => {
     e.preventDefault();
-    this.props.performLogin(this.state);
+
+    if (
+      this.state.username.valid &
+      this.state.username.eddited &
+      this.state.password.valid &
+      this.state.password.eddited
+    ) {
+      this.props.performLogin({
+        username: this.state.username.value,
+        password: this.state.password.value
+      });
+    } else {
+      this.setState({ message: "Fill all the Fields correctly" });
+    }
   };
 
   render() {
@@ -60,32 +127,25 @@ class UserTab extends Component {
     let input_fields = (
       <form className="col s12" onSubmit={e => this.Login(e)}>
         <div className="col s12">
-          <Elements.InputFiled
-            id="username"
-            placeholder="Enter User Name"
-            label="User Name"
-            isvalid={true}
+          <Elements.InputField
+            config={this.state.username}
             onchange={this.handler}
           />
         </div>
         <div className="col s12">
-          <Elements.InputFiled
-            id="password"
-            placeholder="Enter Password"
-            label="Password"
-            type="password"
-            isvalid={true}
+          <Elements.InputField
+            config={this.state.password}
             onchange={this.handler}
           />
         </div>
+        <p className="red-text">{this.state.message}</p>
         <div className="col s12 center-align">
-          <a
+          <input
+            type="submit"
             id="search-btn"
-            className="waves-effect waves-light btn"
-            //onClick={() => this.props.performLogin(this.state.user)}
-          >
-            Login
-          </a>
+            className="waves-effect waves-light btn white-text"
+            value="Login"
+          />
         </div>
         <div className="col s12 center-align signup">
           <a

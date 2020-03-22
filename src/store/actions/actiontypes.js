@@ -7,3 +7,4 @@ export const pagenumone = "pagenumone";
 export const loading = "loading";
 export const getGenreList = "getGenreList";
 export const OpenModal = "OpenModal";
+export const Register = "Register";

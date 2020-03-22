@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
 import M from "materialize-css";
 
+import { Link } from "react-router-dom";
 import SearchTab from "./searchtab";
 import UserTab from "./usertab";
 
@@ -21,12 +22,12 @@ class Sidenav extends Component {
               }}
             >
               <li className="tab col s6">
-                <a className="active" href="#search">
-                  Search
-                </a>
+                <a href="#search">Search</a>
               </li>
               <li className="tab col s6">
-                <a href="#user">User</a>
+                <a href="#user" className="active">
+                  User
+                </a>
               </li>
             </ul>
           </div>

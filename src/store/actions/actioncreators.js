@@ -10,7 +10,12 @@ export {
   getGenreList
 } from "./movieactioncreators";
 
-export { performOpenModal, doLogout, doLogin } from "./useractioncreators";
+export {
+  performOpenModal,
+  doLogout,
+  doLogin,
+  performRegister
+} from "./useractioncreators";
 
 /*
 export const pageloading = (val = true) => {
