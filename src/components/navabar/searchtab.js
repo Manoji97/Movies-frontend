@@ -19,11 +19,11 @@ class SearchTab extends Component {
     genreslist: []
   };
 
-  componentDidUpdate(prevprops, prevstate) {
+  componentDidUpdate(prevprops) {
     if (prevprops.p_genrelist !== this.props.p_genrelist) {
-      this.setState({
-        genreslist: this.create_genrelist(this.props.p_genrelist)
-      });
+      console.log("updated");
+      console.log(this.props.p_genrelist);
+      this.setState({ genrelist: this.create_genrelist(this.props.genrelist) });
     }
   }
 
@@ -37,7 +37,7 @@ class SearchTab extends Component {
 
   create_genrelist = genrelist => {
     let newgenrelist = [];
-    if (genrelist.length > 0) {
+    if (genrelist) {
       genrelist.map(item => {
         newgenrelist.push({
           value: item.genre,
@@ -109,6 +109,7 @@ class SearchTab extends Component {
   };
 
   render() {
+    console.log("rendered");
     return (
       <div>
         <div className="col s12">
@@ -122,7 +123,7 @@ class SearchTab extends Component {
           <Elements.DropdownField
             id="genre"
             label="Genres Select"
-            options={this.genreslist}
+            options={this.state.genrelist}
             select={this.select_handler}
           />
         </div>

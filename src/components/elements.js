@@ -84,7 +84,13 @@ export const ButtonField = props => {
 
 export class DropdownField extends Component {
   componentDidMount() {
+    console.log("ele mounted");
     M.FormSelect.init(this.select, {});
+    console.log(this.props.options);
+  }
+  componentDidUpdate() {
+    console.log("ele upadted");
+    console.log(this.props.options);
   }
 
   render() {
@@ -93,14 +99,15 @@ export class DropdownField extends Component {
         Choose your option
       </option>
     ];
-
-    this.props.options.map(item => {
-      optlist.push(
-        <option key={item.value} value={item.value}>
-          {item.inner}
-        </option>
-      );
-    });
+    if (this.props.options) {
+      this.props.options.map(item => {
+        optlist.push(
+          <option key={item.value} value={item.value}>
+            {item.inner}
+          </option>
+        );
+      });
+    }
 
     return (
       <div className="input-field col s12">

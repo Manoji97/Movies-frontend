@@ -30,7 +30,6 @@ export const CheckLoginStatus = () => {
   return dispatch => {
     const token = localStorage.getItem("Token");
     const username = localStorage.getItem("Username");
-    console.log(token, username);
     if (token) {
       dispatch(Login(true, { username: username, token: token }));
     }

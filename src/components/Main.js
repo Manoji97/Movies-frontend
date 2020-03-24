@@ -13,7 +13,6 @@ import * as actioncreators from "../store/actions/actioncreators";
 
 class Main extends Component {
   componentDidMount() {
-    console.log("came");
     this.props.performlogincheck();
     this.props.performonHomeLoad();
   }
