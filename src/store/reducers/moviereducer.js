@@ -11,7 +11,8 @@ const initialstate = {
     previous: "",
     results: []
   },
-  moviedata: {}
+  moviedata: {},
+  movieratingmessage: ""
 };
 
 const Moviereducer = (state = initialstate, action) => {
@@ -48,6 +49,20 @@ const Moviereducer = (state = initialstate, action) => {
         ...state,
         moviedata: action.value,
         isLoading: false
+      };
+      break;
+    case actiontypes.updateRating:
+      let newrating = state.moviedata.Your_rating;
+      if (action.value.message === "Successful") {
+        newrating = action.value.newrating;
+      }
+      state = {
+        ...state,
+        moviedata: {
+          ...state.moviedata,
+          Your_rating: newrating
+        },
+        movieratingmessage: action.value.message
       };
       break;
   }

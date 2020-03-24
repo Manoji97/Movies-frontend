@@ -13,6 +13,8 @@ import * as actioncreators from "../store/actions/actioncreators";
 
 class Main extends Component {
   componentDidMount() {
+    console.log("came");
+    this.props.performlogincheck();
     this.props.performonHomeLoad();
   }
 
@@ -33,7 +35,8 @@ class Main extends Component {
 
 const mapdispatchtoprops = dispatch => {
   return {
-    performonHomeLoad: () => dispatch(actioncreators.onSingleLoad())
+    performonHomeLoad: () => dispatch(actioncreators.onSingleLoad()),
+    performlogincheck: () => dispatch(actioncreators.CheckLoginStatus())
   };
 };
 

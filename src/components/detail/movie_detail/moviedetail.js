@@ -9,7 +9,7 @@ import * as actioncreators from "../../../store/actions/actioncreators";
 
 class MovieDetail extends Component {
   componentDidMount() {
-    this.props.performgoDetail(this.props.movieId);
+    this.props.performgoDetail(this.props.movieId, this.props.p_token);
   }
 
   joingenres = persondata => {
@@ -90,7 +90,10 @@ class MovieDetail extends Component {
                 </div>
                 <div className="col m6 l8">
                   <p className="value">
-                    <Star rating={2} movieId={this.props.movieId} />
+                    <Star
+                      rating={this.props.pmovie_data.Your_rating}
+                      movieId={this.props.movieId}
+                    />
                   </p>
                 </div>
               </div>
@@ -124,13 +127,15 @@ class MovieDetail extends Component {
 
 const mapstatetoprops = state => {
   return {
-    pmovie_data: state.movie.moviedata
+    pmovie_data: state.movie.moviedata,
+    p_token: state.user_info.user.token
   };
 };
 
 const mapdispatchtoprops = dispatch => {
   return {
-    performgoDetail: movie_id => dispatch(actioncreators.goDetail(movie_id))
+    performgoDetail: (movie_id, token) =>
+      dispatch(actioncreators.goDetail(movie_id, token))
   };
 };
 

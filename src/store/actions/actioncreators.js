@@ -15,7 +15,8 @@ export {
   performOpenModal,
   doLogout,
   doLogin,
-  performRegister
+  performRegister,
+  CheckLoginStatus
 } from "./useractioncreators";
 
 /*

@@ -3,7 +3,7 @@ import "materialize-css/dist/css/materialize.css";
 
 const Spinner = () => {
   return (
-    <div className="preloader-wrapper big active">
+    <div className="preloader-wrapper big active load">
       <div className="spinner-layer spinner-red-only">
         <div className="circle-clipper left">
           <div className="circle"></div>

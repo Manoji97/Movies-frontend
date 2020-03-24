@@ -15,16 +15,31 @@ const Login = (success_bool, login_data) => {
 export const doLogin = user_info => {
   return dispatch => {
     axios.LoginLink.post("auth/", user_info)
-      .then(res =>
+      .then(res => {
+        localStorage.setItem("Token", res.data.token);
+        localStorage.setItem("Username", user_info.username);
         dispatch(
           Login(true, { username: user_info.username, token: res.data.token })
-        )
-      )
+        );
+      })
       .catch(err => dispatch(Login(false, err.response.data)));
   };
 };
 
+export const CheckLoginStatus = () => {
+  return dispatch => {
+    const token = localStorage.getItem("Token");
+    const username = localStorage.getItem("Username");
+    console.log(token, username);
+    if (token) {
+      dispatch(Login(true, { username: username, token: token }));
+    }
+  };
+};
+
 export const doLogout = () => {
+  localStorage.removeItem("Token");
+  localStorage.removeItem("Username");
   return {
     type: actiontypes.doLogout
   };

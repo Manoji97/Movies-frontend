@@ -73,9 +73,17 @@ const Detail = movie_data => {
   };
 };
 
-export const goDetail = movie_id => {
+const headers = {
+  "Content-Type": "application/json"
+};
+
+export const goDetail = (movie_id, token) => {
+  let lheaders = headers;
+  if (token !== "") lheaders = { ...headers, Authorization: `Token ${token}` };
   return dispatch => {
-    axios.Movielink.get("/" + movie_id)
+    axios.Movielink.get("/" + movie_id, {
+      headers: lheaders
+    })
       .then(res => {
         dispatch(Detail(res.data));
       })
@@ -98,19 +106,17 @@ export const getGenreList = () => {
   };
 };
 
-const UpdateRating = () => {
+const UpdateRating = (message, rating = null) => {
   return {
-    type: actiontypes.updateRating
+    type: actiontypes.updateRating,
+    value: {
+      message: message,
+      newrating: rating
+    }
   };
 };
 
-const headers = {
-  "Content-Type": "application/json",
-  Authorization: "Token "
-};
-
 export const updateRating = (movieId, token, newrate) => {
-  console.log(token);
   return dispatch => {
     axios.Movielink.post(`${movieId}/rate_movie/`, newrate, {
       headers: {
@@ -118,7 +124,7 @@ export const updateRating = (movieId, token, newrate) => {
         Authorization: `Token ${token}`
       }
     })
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err.response.data));
+      .then(res => dispatch(UpdateRating("Successful", res.data.result.rating)))
+      .catch(err => dispatch(UpdateRating("Failed")));
   };
 };

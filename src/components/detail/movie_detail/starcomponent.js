@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "materialize-css/dist/css/materialize.css";
+import M from "materialize-css";
 
 import { connect } from "react-redux";
 import * as actioncreators from "../../../store/actions/actioncreators";
@@ -40,7 +41,7 @@ class Star extends Component {
         rating: pstate.original
       }));
     } else {
-      console.log("You have to Loggin to add Rating");
+      M.toast({ html: "You have to Loggin to add Rating" });
     }
   };
 
@@ -87,11 +88,14 @@ class Star extends Component {
         {stars}
         {this.state.edit ? check : null}
         <i
-          className="material-icons right white-text"
+          className="material-icons right yellow-text tooltipped"
+          data-position="top"
+          data-tooltip="You have to Loggin to add Rating"
           onClick={this.edithandler}
         >
           create
         </i>
+        <p className="white-text">{this.props.p_message}</p>
       </div>
     );
   }
@@ -100,7 +104,8 @@ class Star extends Component {
 const mapstatetoprops = state => {
   return {
     p_isloggedin: state.user_info.user.isLoggedin,
-    p_token: state.user_info.token
+    p_token: state.user_info.user.token,
+    p_message: state.movie.movieratingmessage
   };
 };
 

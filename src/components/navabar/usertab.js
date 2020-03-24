@@ -3,6 +3,8 @@ import "materialize-css/dist/css/materialize.css";
 
 import * as Elements from "../elements";
 
+import { withRouter } from "react-router-dom";
+
 import { connect } from "react-redux";
 import * as actioncreators from "../../store/actions/actioncreators";
 
@@ -98,6 +100,7 @@ class UserTab extends Component {
         username: this.state.username.value,
         password: this.state.password.value
       });
+      this.props.history.push("/");
     } else {
       this.setState({ message: "Fill all the Fields correctly" });
     }
@@ -185,4 +188,6 @@ const mapdispatchtoprops = dispatch => {
   };
 };
 
-export default connect(mapstatetoprops, mapdispatchtoprops)(UserTab);
+export default withRouter(
+  connect(mapstatetoprops, mapdispatchtoprops)(UserTab)
+);
