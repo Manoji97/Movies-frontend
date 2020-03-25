@@ -12,7 +12,8 @@ const initialstate = {
     results: []
   },
   moviedata: {},
-  movieratingmessage: ""
+  movieratingmessage: "",
+  commonerror: ""
 };
 
 const Moviereducer = (state = initialstate, action) => {
@@ -35,6 +36,7 @@ const Moviereducer = (state = initialstate, action) => {
     case actiontypes.loading:
       state = {
         ...state,
+        commonerror: "",
         isLoading: action.value
       };
       break;
@@ -50,6 +52,13 @@ const Moviereducer = (state = initialstate, action) => {
         moviedata: action.value,
         isLoading: false
       };
+      break;
+    case actiontypes.PageLoadFail:
+      state = {
+        ...state,
+        commonerror: "Network Error",
+        isLoading: fasle
+      }
       break;
     case actiontypes.updateRating:
       let newrating = state.moviedata.Your_rating;

@@ -9,3 +9,4 @@ export const getGenreList = "getGenreList";
 export const OpenModal = "OpenModal";
 export const Register = "Register";
 export const updateRating = "updateRating";
+export const PageLoadFail = "PageLoadFail";

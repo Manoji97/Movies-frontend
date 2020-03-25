@@ -17,6 +17,12 @@ const SingleHomeLoad = (movieListData, searchquery) => {
   };
 };
 
+const PageLoadFail = () => {
+  return {
+    type: actiontypes.PageLoadFail
+  }
+}
+
 const querygenerator = searchobj => {
   let searchquery = "";
   for (const query in searchobj) {
@@ -46,7 +52,7 @@ export const onSingleLoad = (searchdata = null) => {
         .then(res => {
           dispatch(SingleHomeLoad(res.data, "/?" + allquery.query));
         })
-        .catch(err => console.log(err));
+        .catch(() => dispatch(PageLoadFail()));
     };
   }
   return dispatch => {
@@ -87,7 +93,7 @@ export const goDetail = (movie_id, token) => {
       .then(res => {
         dispatch(Detail(res.data));
       })
-      .catch(err => console.log(err));
+      .catch(() => dispatch(PageLoadFail()));
   };
 };
 
