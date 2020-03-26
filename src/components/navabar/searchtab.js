@@ -15,17 +15,8 @@ class SearchTab extends Component {
       genre: "",
       year: "",
       rating: ""
-    },
-    genreslist: []
-  };
-
-  componentDidUpdate(prevprops) {
-    if (prevprops.p_genrelist !== this.props.p_genrelist) {
-      console.log("updated");
-      console.log(this.props.p_genrelist);
-      this.setState({ genrelist: this.create_genrelist(this.props.genrelist) });
     }
-  }
+  };
 
   create_optionslist = (start, end) => {
     let optionlist = [];
@@ -33,19 +24,6 @@ class SearchTab extends Component {
       optionlist.push({ value: i, inner: i });
     }
     return optionlist;
-  };
-
-  create_genrelist = genrelist => {
-    let newgenrelist = [];
-    if (genrelist) {
-      genrelist.map(item => {
-        newgenrelist.push({
-          value: item.genre,
-          inner: item.genre
-        });
-      });
-    }
-    return newgenrelist;
   };
 
   genreslist = [
@@ -109,7 +87,6 @@ class SearchTab extends Component {
   };
 
   render() {
-    console.log("rendered");
     return (
       <div>
         <div className="col s12">
@@ -119,14 +96,17 @@ class SearchTab extends Component {
             onchange={this.name_handler}
           />
         </div>
-        <div className="col s12">
-          <Elements.DropdownField
-            id="genre"
-            label="Genres Select"
-            options={this.state.genrelist}
-            select={this.select_handler}
-          />
-        </div>
+        {this.props.p_genrelist.length > 0 ? (
+          <div className="col s12">
+            <Elements.DropdownField
+              id="genre"
+              label="Genres Select"
+              options={this.props.p_genrelist}
+              select={this.select_handler}
+            />
+          </div>
+        ) : null}
+
         <div className="col s12">
           <Elements.DropdownField
             id="year"

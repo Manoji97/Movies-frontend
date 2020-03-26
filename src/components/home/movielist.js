@@ -105,7 +105,13 @@ class MovieList extends Component {
 
     return (
       <section className="main">
-        {this.props.p_isloading ? <Spinner /> : MainList}
+        {this.props.p_isloading ? (
+          <Spinner />
+        ) : this.props.p_commonerror !== "" ? (
+          <p>{this.props.p_commonerror}</p>
+        ) : (
+          MainList
+        )}
       </section>
     );
   }
@@ -116,7 +122,8 @@ const mapstatetoprops = state => {
     pmoviedata_list: state.movie.datalist,
     p_searchurl: state.movie.searchstring,
     p_statepage: state.movie.pagenumber,
-    p_isloading: state.movie.isLoading
+    p_isloading: state.movie.isLoading,
+    p_commonerror: state.movie.commonerror
   };
 };
 

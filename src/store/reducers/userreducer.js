@@ -78,6 +78,9 @@ const Userreducer = (state = initialstate, action) => {
         }
       };
       break;
+
+    default:
+      break;
   }
   return state;
 };

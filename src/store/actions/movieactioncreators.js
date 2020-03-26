@@ -20,8 +20,8 @@ const SingleHomeLoad = (movieListData, searchquery) => {
 const PageLoadFail = () => {
   return {
     type: actiontypes.PageLoadFail
-  }
-}
+  };
+};
 
 const querygenerator = searchobj => {
   let searchquery = "";
@@ -61,7 +61,7 @@ export const onSingleLoad = (searchdata = null) => {
       .then(res => {
         dispatch(SingleHomeLoad(res.data, "/?"));
       })
-      .catch(err => console.log(err));
+      .catch(() => dispatch(PageLoadFail()));
   };
 };
 

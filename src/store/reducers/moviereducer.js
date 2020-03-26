@@ -41,9 +41,19 @@ const Moviereducer = (state = initialstate, action) => {
       };
       break;
     case actiontypes.getGenreList:
+      let genres;
+      if (action.value) {
+        genres = action.value.map(item => {
+          return {
+            value: item.genre,
+            inner: item.genre
+          };
+        });
+      }
+
       state = {
         ...state,
-        genrelist: action.value
+        genrelist: genres
       };
       break;
     case actiontypes.goDetail:
@@ -57,8 +67,8 @@ const Moviereducer = (state = initialstate, action) => {
       state = {
         ...state,
         commonerror: "Network Error",
-        isLoading: fasle
-      }
+        isLoading: false
+      };
       break;
     case actiontypes.updateRating:
       let newrating = state.moviedata.Your_rating;
@@ -73,6 +83,8 @@ const Moviereducer = (state = initialstate, action) => {
         },
         movieratingmessage: action.value.message
       };
+      break;
+    default:
       break;
   }
   return state;

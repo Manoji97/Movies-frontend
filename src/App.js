@@ -9,7 +9,6 @@ import { Provider } from "react-redux";
 
 import ScrollToTop from "./components/scrollup";
 
-import reducer from "./store/reducers/reducer";
 import Moviereducer from "./store/reducers/moviereducer";
 import Userreducer from "./store/reducers/userreducer";
 import thunk from "redux-thunk";

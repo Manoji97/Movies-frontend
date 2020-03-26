@@ -4,7 +4,7 @@ import "materialize-css/dist/css/materialize.css";
 import * as cards from "../../moviecards";
 
 class Recommendations extends Component {
-  movielist = [1,2,3,4]
+  movielist = [1, 2, 3, 4];
   render() {
     let recommendationlist = this.movielist.map(() => {
       return (
@@ -23,9 +23,7 @@ class Recommendations extends Component {
           <p>RECOMMENDATIONS</p>
         </div>
         <div class="recommend_wrapper">
-          <div class="mod_row">
-          {recommendationlist}
-          </div>
+          <div class="mod_row">{recommendationlist}</div>
         </div>
       </div>
     );

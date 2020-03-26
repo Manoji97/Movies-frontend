@@ -1,7 +1,3 @@
-import * as actiontypes from "./actiontypes";
-
-import * as axios from "../../axioscreation";
-
 export {
   pageloading,
   onSingleLoad,

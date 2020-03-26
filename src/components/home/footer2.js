@@ -35,7 +35,7 @@ const Footer = props => {
   return (
     <footer className="center-align">
       <p className="white-text">
-        {props.count} number of results.({pagecount} pages)
+        {props.count} Search results.({pagecount} pages)
       </p>
       <ul className="pagination">
         <li

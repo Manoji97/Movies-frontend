@@ -16,16 +16,23 @@ class Detail extends Component {
     let Detail = (
       <React.Fragment>
         <MovieDetail movieId={this.props.match.params.id} />
-        <Recommendations />
+        <Recommendations movieId={this.props.match.params.id} />
       </React.Fragment>
     );
-    return this.props.p_isloading ? <Spinner /> : Detail;
+    return this.props.p_isloading ? (
+      <Spinner />
+    ) : this.props.p_commonerror !== "" ? (
+      <p>{this.props.p_commonerror}</p>
+    ) : (
+      Detail
+    );
   }
 }
 
 const mapstatetoprops = state => {
   return {
-    p_isloading: state.movie.isLoading
+    p_isloading: state.movie.isLoading,
+    p_commonerror: state.movie.commonerror
   };
 };
 
