@@ -11,6 +11,7 @@ import ScrollToTop from "./components/scrollup";
 
 import Moviereducer from "./store/reducers/moviereducer";
 import Userreducer from "./store/reducers/userreducer";
+import RecommendationReducer from "./store/reducers/recommendationreducer";
 import thunk from "redux-thunk";
 
 const composeEnhancers =
@@ -22,7 +23,8 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 const rootreducer = combineReducers({
   movie: Moviereducer,
-  user_info: Userreducer
+  user_info: Userreducer,
+  recommendations: RecommendationReducer
 });
 
 const store = createStore(rootreducer, enhancer);

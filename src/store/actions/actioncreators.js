@@ -15,6 +15,8 @@ export {
   CheckLoginStatus
 } from "./useractioncreators";
 
+export { GetRecommendations } from "./recommendationactioncreators";
+
 /*
 export const pageloading = (val = true) => {
   return {

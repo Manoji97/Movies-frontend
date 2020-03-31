@@ -12,7 +12,13 @@ class Detail extends Component {
   componentDidMount() {
     this.props.pstartloading();
   }
+  componentDidUpdate(prevpros) {
+    if (prevpros.match.params.id !== this.props.match.params.id) {
+      this.props.pstartloading();
+    }
+  }
   render() {
+    console.log(this.props.match.params.id);
     let Detail = (
       <React.Fragment>
         <MovieDetail movieId={this.props.match.params.id} />

@@ -109,17 +109,19 @@ const Span = styled.span`
 export const MiniMovieCard = props => {
   return (
     <Card small>
-      <Image small>
-        <Image_img src={props.image_link} alt="" />
-        <Wrap small>
-          <Title>
-            <Span>{props.movie_name}</Span>
-          </Title>
-          <Rating small>
-            <Span>{props.movie_rating}</Span>
-          </Rating>
-        </Wrap>
-      </Image>
+      <Link to={props.detail_link}>
+        <Image small>
+          <Image_img src={props.image_link} alt="" />
+          <Wrap small>
+            <Title>
+              <Span>{props.movie_name}</Span>
+            </Title>
+            <Rating small>
+              <Span>{props.movie_rating}</Span>
+            </Rating>
+          </Wrap>
+        </Image>
+      </Link>
     </Card>
   );
 };

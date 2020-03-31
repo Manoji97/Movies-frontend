@@ -12,6 +12,12 @@ class MovieDetail extends Component {
     this.props.performgoDetail(this.props.movieId, this.props.p_token);
   }
 
+  componentDidUpdate(prevprops) {
+    if (prevprops.movieId != this.props.movieId) {
+      this.props.performgoDetail(this.props.movieId, this.props.p_token);
+    }
+  }
+
   joingenres = persondata => {
     if (persondata) {
       let genresnames = persondata.map(item => {
